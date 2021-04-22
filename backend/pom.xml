@@ -8,11 +8,11 @@
         <version>2.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.llama</groupId>
-    <artifactId>llama-llama</artifactId>
+    <groupId>com.thellamallama</groupId>
+    <artifactId>thellamallama-api</artifactId>
     <version>1.0.0</version>
-    <name>llama-llama</name>
-    <description>Proyecto Desarrollo Web</description>
+    <name>thellamallama-api</name>
+    <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -40,6 +40,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.4.0</version>
         </dependency>
     </dependencies>
 
