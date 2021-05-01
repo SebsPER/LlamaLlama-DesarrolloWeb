@@ -36,9 +36,36 @@ public class Producto {
             nullable = false
     )
     private Long id;
+    @Column(
+            name="nombre",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String nombre;
+    @Column(
+            name="precio",
+            nullable = false
+    )
     private Float precio;
+    @Column(
+            name="stock",
+            nullable = false
+    )
     private Integer stock;
+    /*@ManyToMany
+    private Tienda tienda_id;
+    @ManyToMany
+    private Compra compra_id;*/
+    @ManyToOne
+    @JoinColumn(
+            name= "categoria_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name="categoria_producto_fk"
+            )
+    )
+    private Categoria categoria_id;
 
 
 }

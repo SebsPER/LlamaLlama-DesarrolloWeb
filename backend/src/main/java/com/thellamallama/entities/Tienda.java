@@ -76,13 +76,13 @@ public class Tienda {
     )
     private String password;
 
-    public Tienda(String nombre,Integer RUC,String password, String nombre_encargado,String direccion, String razon_social) {
+    /*public Tienda(String nombre,Integer RUC,String password, String nombre_encargado,String direccion, String razon_social) {
         this.nombre=nombre;
         this.RUC=RUC;
         this.password=password;
         this.nombre_encargado=nombre_encargado;
         this.direccion=direccion;
         this.razon_social=razon_social;
-    }
+    }*/
 
 }

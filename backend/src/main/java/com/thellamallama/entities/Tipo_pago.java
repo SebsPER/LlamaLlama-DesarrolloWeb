@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -52,10 +54,16 @@ public class Tipo_pago {
             nullable = false
     )
     private Float descuento;
+    @OneToMany(
+            mappedBy = "tipo_pago",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Compra> compras= new ArrayList<>();
 
-    public Tipo_pago(String descripcion,String nombre,Float descuento){
+    /*public Tipo_pago(String descripcion,String nombre,Float descuento){
         this.descripcion=descripcion;
         this.nombre=nombre;
         this.descuento=descuento;
-    }
+    }*/
 }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -77,7 +79,7 @@ public class Cliente {
     )
     private String password;
 
-    public Cliente(String nombre,Integer dni,String direccion,Integer telefono,String apellido_paterno,
+   /* public Cliente(String nombre,Integer dni,String direccion,Integer telefono,String apellido_paterno,
                    String apellido_materno,String password){
         this.nombre=nombre;
         this.dni=dni;
@@ -87,5 +89,12 @@ public class Cliente {
         this.apellido_materno=apellido_materno;
         this.password=password;
 
-    }
+    }*/
+    @OneToMany(
+            mappedBy = "cliente",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Compra> compras=new ArrayList<>();
+
 }

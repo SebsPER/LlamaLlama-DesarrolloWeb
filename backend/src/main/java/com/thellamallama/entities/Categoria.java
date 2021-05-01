@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -49,8 +51,14 @@ public class Categoria {
             columnDefinition = "TEXT"
     )
     private String descripcion;
-    public Categoria(String nombre,String descripcion){
+    @OneToMany(
+            mappedBy = "categoria",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Producto> productos= new ArrayList<>();
+    /*public Categoria(String nombre,String descripcion){
         this.nombre=nombre;
         this.descripcion=descripcion;
-    }
+    }*/
 }
