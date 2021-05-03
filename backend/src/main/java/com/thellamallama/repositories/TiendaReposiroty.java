@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface TiendaReposiroty extends JpaRepository<Tienda, Long> {
     @Override
-    Optional<Tienda> findById(Long aLong);
+    Optional<Tienda> findById(Long id);
 
     Optional<Tienda> findByNombre(String nombre);
 
@@ -36,6 +36,7 @@ public interface TiendaReposiroty extends JpaRepository<Tienda, Long> {
 
     @Query("SELECT Tienda.direccion FROM Tienda WHERE Tienda.nombre=:nombre")
     Optional<String> direccion_tienda(String nombre) throws Exception;
+    // direccion de una tienda dado un nombre
 
 
 }

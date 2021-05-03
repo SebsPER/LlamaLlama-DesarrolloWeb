@@ -30,4 +30,12 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
     List<Compra> findComprasPorTienda(
             @Param("inputFecha") Date fecha
     );
+    @Query(value = "SELECT c.id, c.cliente_id, c.monto_total, c.monto_total-c.monto_total*Tp.descuento FROM compra c" +
+            "JOIN Tipo_pago Tp ON c.tipo_pago_id = Tp.id" +
+            "WHERE c.id=:codigoCompra",
+            nativeQuery = true
+    ) // aplicar descuento a una compra
+    Optional<Compra> applyDiscount(
+            @Param("codigoCompra") Long id
+    );
 }
