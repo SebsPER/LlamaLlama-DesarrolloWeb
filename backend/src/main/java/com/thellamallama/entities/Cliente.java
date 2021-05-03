@@ -76,17 +76,6 @@ public class Cliente {
     )
     private String password;
 
-    /* public Cliente(String nombre,Integer dni,String direccion,Integer telefono,String apellido_paterno,
-                    String apellido_materno,String password){
-         this.nombre=nombre;
-         this.dni=dni;
-         this.direccion=direccion;
-         this.telefono=telefono;
-         this.apellido_paterno=apellido_paterno;
-         this.apellido_materno=apellido_materno;
-         this.password=password;
-
-     }*/
     @OneToMany(
             mappedBy = "cliente",
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE},

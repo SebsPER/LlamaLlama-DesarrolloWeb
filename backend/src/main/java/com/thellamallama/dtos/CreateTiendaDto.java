@@ -10,6 +10,4 @@ public class CreateTiendaDto {
     private String direccion;
     private String nombre_encargado;
     private String password;
-
-
 }

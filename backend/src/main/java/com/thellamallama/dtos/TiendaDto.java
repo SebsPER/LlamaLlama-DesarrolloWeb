@@ -12,5 +12,4 @@ public class TiendaDto {
     private String razon_social;
     private String direccion;
     private String nombre_encargado;
-    private String password;
 }

@@ -1,5 +1,8 @@
 package com.thellamallama.dtos;
 
+import lombok.Getter;
+
+@Getter
 public class CreateClienteDto {
     private String nombre;
     private Integer dni;

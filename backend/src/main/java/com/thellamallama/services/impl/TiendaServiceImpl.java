@@ -55,6 +55,8 @@ public class TiendaServiceImpl implements TiendaService {
         return modelMapper.map(getTiendaEntity(tienda.getId()),TiendaDto.class);
     }
 
+
+
     private Tienda getTiendaEntity(Long tiendaId)throws Exceptions{
         return tiendaReposiroty.findById(tiendaId)
                 .orElseThrow(()-> new NotFoundException("NOTFOUND-404","TIENDA_NOTFOUND-404"));
