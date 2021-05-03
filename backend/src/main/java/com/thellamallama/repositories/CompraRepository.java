@@ -17,7 +17,7 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
     Optional<Compra> findById(Long id);
 
     @Query("SELECT c FROM Compra c WHERE c.cliente=?1") //encontrar todas las compras de un cliente
-    List<Compra> findComprasPorCliente(Cliente cliente);
+    List<Compra> findComprasPorCliente(Long cliente);
 
     @Query("SELECT c FROM Compra c WHERE c.fecha=?1") //encontrar las compras de una fecha especifica
     List<Compra> findComprasPorFecha(Date fecha);
