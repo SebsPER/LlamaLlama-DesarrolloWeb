@@ -22,7 +22,7 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
     @Query("SELECT c FROM Compra c WHERE c.fecha=?1") //encontrar las compras de una fecha especifica
     List<Compra> findComprasPorFecha(Date fecha);
 
-    @Query(value = "SELECT c.id, T.id, T.nombre, P.id, p.nombre, c.cliente FROM compra c " +
+    @Query(value = "SELECT c.id, T.id, T.nombre, P.id, p.nombre, c.cliente_id FROM compra c " +
             "JOIN Producto P ON P.compra_producto = c.id " +
             "JOIN tiendas T ON T.id = P.tienda_producto" +
             "WHERE c.fecha=:inputFecha", nativeQuery = true
