@@ -1,24 +1,23 @@
 package com.thellamallama.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(
         name="tiendas",
         uniqueConstraints = {
                 @UniqueConstraint(name="tienda_nombre_unique",
-                                    columnNames = "nombre")
+                        columnNames = "nombre")
         }
 )
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Tienda {
     @Id
     @SequenceGenerator(
@@ -75,14 +74,10 @@ public class Tienda {
             columnDefinition = "TEXT"
     )
     private String password;
-
-    /*public Tienda(String nombre,Integer RUC,String password, String nombre_encargado,String direccion, String razon_social) {
-        this.nombre=nombre;
-        this.RUC=RUC;
-        this.password=password;
-        this.nombre_encargado=nombre_encargado;
-        this.direccion=direccion;
-        this.razon_social=razon_social;
-    }*/
+    @ManyToMany
+    @JoinTable(name="tienda_producto",
+            joinColumns = @JoinColumn(name="tienda_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id"))
+    private List<Producto> productos;
 
 }

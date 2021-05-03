@@ -1,11 +1,10 @@
 package com.thellamallama.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -19,7 +18,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Data
 public class Producto {
     @Id
     @SequenceGenerator(
@@ -52,10 +51,16 @@ public class Producto {
             nullable = false
     )
     private Integer stock;
-    /*@ManyToMany
-    private Tienda tienda_id;
     @ManyToMany
-    private Compra compra_id;*/
+    @JoinTable(name="tienda_producto",
+            joinColumns = @JoinColumn(name="producto_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tienda_id", referencedColumnName = "id"))
+    private List<Tienda> tiendas;
+    @ManyToMany
+    @JoinTable(name="compra_producto",
+            joinColumns = @JoinColumn(name="producto_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="compra_id",referencedColumnName = "id"))
+    private List<Compra> compras;
     @ManyToOne
     @JoinColumn(
             name= "categoria_id",
@@ -65,7 +70,7 @@ public class Producto {
                     name="categoria_producto_fk"
             )
     )
-    private Categoria categoria_id;
+    private Categoria categoria;
 
 
 }

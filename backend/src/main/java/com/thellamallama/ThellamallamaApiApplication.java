@@ -15,20 +15,4 @@ public class ThellamallamaApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(ThellamallamaApiApplication.class, args);
     }
-
-
-    @Bean
-    CommandLineRunner commandLineRunner(TiendaReposiroty tiendaReposiroty){
-        return args -> {
-            Tienda norkys=new Tienda(
-                    "norkys",
-                    123,
-                    "pass",
-                    "juan",
-                    "chosica",
-                    "razon_no"
-            );
-            tiendaReposiroty.saveAll(List.of(norkys));
-        };
     }
-}

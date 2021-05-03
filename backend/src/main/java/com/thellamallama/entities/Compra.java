@@ -1,23 +1,22 @@
 package com.thellamallama.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(
         name="compra",
         uniqueConstraints = {
                 @UniqueConstraint(name="compra_codigo_unique",
-                        columnNames = "codigo")
+                        columnNames = "id")
         }
 )
 @Getter
 @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -33,10 +32,10 @@ public class Compra {
             generator = "compra_sequence"
     )
     @Column(
-            name="codigo",
+            name="id",
             nullable = false
     )
-    private Long codigo;
+    private Long id;
     @ManyToOne
     @JoinColumn(
             name="cliente_id",
@@ -78,17 +77,18 @@ public class Compra {
     private Double monto_total;
     @ManyToOne
     @JoinColumn(
-            name="tipo_pago_codigo",
+            name="tipo_pago_id",
             nullable = false,
-            referencedColumnName = "codigo",
+            referencedColumnName = "id",
             foreignKey = @ForeignKey(
                     name="tipopago_compra_fk"
             )
     )
     private Tipo_pago tipo_pago;
-
-
-
-
+    @ManyToMany
+    @JoinTable(name="compra_producto",
+            joinColumns = @JoinColumn(name="tienda_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id"))
+    private List<Producto> productos;
 
 }
