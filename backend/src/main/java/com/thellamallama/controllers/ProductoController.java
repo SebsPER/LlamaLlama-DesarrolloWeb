@@ -37,7 +37,7 @@ public class ProductoController {
                 productoService.getProductos());
     }
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/restaurants")
+    @PostMapping("/products")
     public BookingResponse<ProductoDto> createProducto(@RequestBody CreateProductoDto createProductoDto)
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
