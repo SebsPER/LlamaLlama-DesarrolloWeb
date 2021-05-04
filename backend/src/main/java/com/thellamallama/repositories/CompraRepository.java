@@ -15,8 +15,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CompraRepository extends JpaRepository<Compra, Long> {
     Optional<Compra> findById(Long id);
+    //Optional<Compra> findByClienteAndTipopago(Long clienteID,String tipopago);
 
-    @Query("SELECT c FROM Compra c WHERE c.cliente=?1") //encontrar todas las compras de un cliente
+    /*@Query("SELECT c FROM Compra c WHERE c.cliente=?1") //encontrar todas las compras de un cliente
     List<Compra> findComprasPorCliente(Long cliente);
 
     @Query("SELECT c FROM Compra c WHERE c.fecha=?1") //encontrar las compras de una fecha especifica
@@ -37,5 +38,5 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
     ) // aplicar descuento a una compra
     Optional<Compra> applyDiscount(
             @Param("codigoCompra") Long id
-    );
+    );*/
 }

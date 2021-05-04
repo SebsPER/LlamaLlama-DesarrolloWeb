@@ -12,6 +12,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
@@ -24,6 +28,14 @@ public class ClienteServiceImpl implements ClienteService {
         return modelMapper.map(getClienteEntity(clienteid),ClienteDto.class) ;
     }
 
+    @Override
+    public List<ClienteDto> getClientes() throws BookingException {
+        List<Cliente> clientesEntity=clienteRepository.findAll();
+        return clientesEntity.stream().map(cliente -> modelMapper.map(cliente,ClienteDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     @Override
     public ClienteDto createCliente(CreateClienteDto createClienteDto) throws BookingException {
         Cliente cliente= new Cliente();

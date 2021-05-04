@@ -7,13 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class CreateCompraDto {
-    private Cliente cod_cliente;
-    private Date fecha;
+    private Long clienteid;
+    private String fecha;
     private String direccion;
     private String ciudad_envio;
     private String distrito_envio;
-    private Double monto_total;
-    private Tipo_pago tipo_pago;
+    private Integer monto_total;
+    private Long tipopagoid;
 }

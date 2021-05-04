@@ -50,9 +50,9 @@ public class Compra {
     @Column(
             name="fecha",
             nullable = false,
-            columnDefinition = "Date"
+            columnDefinition = "TEXT"
     )
-    private Date fecha;
+    private String fecha;
     @Column(
             name= "direccion",
             nullable = false,
@@ -75,7 +75,7 @@ public class Compra {
             name= "monto_total",
             nullable = false
     )
-    private Double monto_total;
+    private Integer monto_total;
     @ManyToOne
     @JoinColumn(
             name="tipo_pago_id",

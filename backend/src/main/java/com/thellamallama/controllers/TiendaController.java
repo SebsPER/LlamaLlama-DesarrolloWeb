@@ -13,7 +13,7 @@ import lombok.Getter;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/booking-restaurant"+"/v1")
+@RequestMapping(path="/llamallama"+"/v1")
 public class TiendaController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class TiendaController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/restaurant")
+    @PostMapping("/tiendas")
     public BookingResponse<TiendaDto> createTienda(@RequestBody CreateTiendaDto createTiendaDto)
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",

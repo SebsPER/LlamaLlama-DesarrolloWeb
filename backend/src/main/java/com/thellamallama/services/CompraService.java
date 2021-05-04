@@ -7,8 +7,8 @@ import com.thellamallama.exceptions.BookingException;
 import java.util.List;
 
 public interface CompraService {
-    CompraDto getCompraById(Long CompraId) throws Exception;
-    List<CompraDto> getCompras()throws java.lang.Exception;
-    CompraDto createCompra(CreateCompraDto createCompraDto)throws java.lang.Exception;
+    CompraDto getCompraById(Long CompraId) throws BookingException;
+    List<CompraDto> getCompras()throws BookingException;
+    CompraDto createCompra(CreateCompraDto createCompraDto)throws BookingException;
 
 }
