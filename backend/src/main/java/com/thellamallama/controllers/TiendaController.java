@@ -13,7 +13,7 @@ import lombok.Getter;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/booking-restaurant"+"/v1")
+@RequestMapping(path="/llamallama"+"/v1")
 public class TiendaController {
 
     @Autowired
