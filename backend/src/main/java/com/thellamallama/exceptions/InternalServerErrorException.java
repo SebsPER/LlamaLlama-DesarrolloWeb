@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Arrays;
 
-public class InternalServerErrorException extends Exceptions {
+public class InternalServerErrorException extends BookingException {
     public InternalServerErrorException(String code, String message) {
         super(code, HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
     }

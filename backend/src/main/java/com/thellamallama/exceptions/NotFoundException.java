@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Arrays;
 
-public class NotFoundException extends Exceptions{
+public class NotFoundException extends BookingException {
 
     public NotFoundException(String code, String message){
         super(code, HttpStatus.NOT_FOUND.value(), message);

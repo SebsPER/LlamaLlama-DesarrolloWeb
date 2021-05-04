@@ -3,7 +3,7 @@ package com.thellamallama.services.impl;
 import com.thellamallama.dtos.CreateTiendaDto;
 import com.thellamallama.dtos.TiendaDto;
 import com.thellamallama.entities.Tienda;
-import com.thellamallama.exceptions.Exceptions;
+import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
 import com.thellamallama.repositories.TiendaReposiroty;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,19 +24,19 @@ public class TiendaServiceImpl implements TiendaService {
     private static final ModelMapper modelMapper= new ModelMapper();
 
     @Override
-    public TiendaDto getTiendaById(Long tiendaId) throws Exceptions{
+    public TiendaDto getTiendaById(Long tiendaId) throws BookingException {
         return modelMapper.map(getTiendaEntity(tiendaId), TiendaDto.class);
     }
 
     @Override
-    public List<TiendaDto> getTiendas() throws Exceptions {
+    public List<TiendaDto> getTiendas() throws BookingException {
         List<Tienda> tiendasEntity=tiendaReposiroty.findAll();
         return tiendasEntity.stream().map(tienda -> modelMapper.map(tienda,TiendaDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public TiendaDto createTienda(CreateTiendaDto createTiendaDto) throws Exceptions {
+    public TiendaDto createTienda(CreateTiendaDto createTiendaDto) throws BookingException {
         Tienda tienda=new Tienda();
         tienda.setNombre(createTiendaDto.getNombre());
         tienda.setDireccion(createTiendaDto.getDireccion());
@@ -57,7 +56,7 @@ public class TiendaServiceImpl implements TiendaService {
 
 
 
-    private Tienda getTiendaEntity(Long tiendaId)throws Exceptions{
+    private Tienda getTiendaEntity(Long tiendaId)throws BookingException {
         return tiendaReposiroty.findById(tiendaId)
                 .orElseThrow(()-> new NotFoundException("NOTFOUND-404","TIENDA_NOTFOUND-404"));
     }

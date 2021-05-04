@@ -3,8 +3,7 @@ package com.thellamallama.services.impl;
 import com.thellamallama.dtos.ClienteDto;
 import com.thellamallama.dtos.CreateClienteDto;
 import com.thellamallama.entities.Cliente;
-import com.thellamallama.entities.Tienda;
-import com.thellamallama.exceptions.Exceptions;
+import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
 import com.thellamallama.repositories.ClienteRepository;
@@ -18,14 +17,15 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
     private static final ModelMapper modelMapper= new ModelMapper();
     @Override
-    public ClienteDto getClientebyID(Long clienteid) throws Exception {
+    public ClienteDto getClientebyID(Long clienteid) throws BookingException {
         return modelMapper.map(getClienteEntity(clienteid),ClienteDto.class) ;
     }
 
     @Override
-    public ClienteDto createCliente(CreateClienteDto createClienteDto) throws Exception {
+    public ClienteDto createCliente(CreateClienteDto createClienteDto) throws BookingException {
         Cliente cliente= new Cliente();
         cliente.setNombre(createClienteDto.getNombre());
         cliente.setDni(createClienteDto.getDni());
@@ -42,7 +42,7 @@ public class ClienteServiceImpl implements ClienteService {
         return modelMapper.map(getClienteEntity(cliente.getId()), ClienteDto.class);
 
     }
-    private Cliente getClienteEntity(Long clienteid) throws Exceptions{
+    private Cliente getClienteEntity(Long clienteid) throws BookingException {
         return clienteRepository.findById(clienteid)
                 .orElseThrow(()-> new NotFoundException("NOT-FOUND-404","NOT-FOUND-404"));
     }

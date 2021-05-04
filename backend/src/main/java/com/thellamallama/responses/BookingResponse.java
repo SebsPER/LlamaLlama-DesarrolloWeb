@@ -1,6 +1,5 @@
 package com.thellamallama.responses;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

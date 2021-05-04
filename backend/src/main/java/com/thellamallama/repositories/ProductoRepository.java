@@ -14,7 +14,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     Optional<Producto> findByNombre(String nombre);
 
-    @Query("SELECT Producto.nombre, Categoria.nombre FROM Producto " +
+    /*@Query("SELECT Producto.nombre, Categoria.nombre FROM Producto " +
             "JOIN Categoria on Categoria.Id = Producto.categoria.Id " +
             "WHERE Categoria.nombre = :nombre ")
     List<String> productosCategoria(String nombre);
@@ -30,5 +30,5 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
             "JOIN Tienda. tp ON tp.id = Producto.id" +
             "WHERE Tienda.nombre = :nombre and Producto.stock > 0 ")
     List<String> productosStockporTienda(String nombre);
-    //dado un nombre de producto, lista las tiendas en las que hay stock
+    //dado un nombre de producto, lista las tiendas en las que hay stock*/
 }

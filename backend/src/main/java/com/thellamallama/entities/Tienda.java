@@ -3,7 +3,8 @@ package com.thellamallama.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 @Table(
@@ -74,10 +75,8 @@ public class Tienda {
             columnDefinition = "TEXT"
     )
     private String password;
-    @ManyToMany
-    @JoinTable(name="tienda_producto",
-            joinColumns = @JoinColumn(name="tienda_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id"))
-    private List<Producto> productos;
+
+    @ManyToMany(mappedBy = "tiendas", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Producto> productos = new HashSet<>();
 
 }

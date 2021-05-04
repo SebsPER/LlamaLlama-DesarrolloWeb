@@ -20,23 +20,23 @@ public interface TiendaReposiroty extends JpaRepository<Tienda, Long> {
     @Query("SELECT t FROM Tienda t")
     List<Tienda> findTiendas();
 
-    @Query("SELECT Tienda.nombre, Producto.nombre, Producto.stock FROM Tienda " +
+    /*@Query("SELECT Tienda.nombre, Producto.nombre, Producto.stock FROM Tienda " +
             "JOIN Producto ON Tienda.id = Producto.id")
     List<String> stock_tienda();
-    //productos y stock por tienda
+    //productos y stock por tienda*/
 
-    @Query("SELECT Tienda.nombre, Producto.nombre, Producto.precio FROM Tienda " +
+    /*@Query("SELECT Tienda.nombre, Producto.nombre, Producto.precio FROM Tienda " +
             "JOIN Producto ON Tienda.id = Producto.id")
     List<Tienda> precio_tienda();
-    //productos y sus precios
+    //productos y sus precios*/
 
-    @Query("SELECT Tienda.nombre_encargado FROM Tienda WHERE Tienda.nombre=:nombre")
+    /*@Query("SELECT Tienda.nombre_encargado FROM Tienda WHERE Tienda.nombre=:nombre")
     Optional<String> encargado_tienda(String nombre) throws Exception;
     // encargado de una tienda especifica
 
     @Query("SELECT Tienda.direccion FROM Tienda WHERE Tienda.nombre=:nombre")
     Optional<String> direccion_tienda(String nombre) throws Exception;
-    // direccion de una tienda dado un nombre
+    // direccion de una tienda dado un nombre*/
 
 
 }
