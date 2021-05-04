@@ -4,7 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 @Table(
@@ -85,10 +86,7 @@ public class Compra {
             )
     )
     private Tipo_pago tipo_pago;
-    @ManyToMany
-    @JoinTable(name="compra_producto",
-            joinColumns = @JoinColumn(name="tienda_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id"))
-    private List<Producto> productos;
 
+    @ManyToMany(mappedBy = "compras", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Producto> productos = new HashSet<>();
 }
