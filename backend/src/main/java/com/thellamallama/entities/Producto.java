@@ -3,6 +3,7 @@ package com.thellamallama.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -51,16 +52,23 @@ public class Producto {
             nullable = false
     )
     private Integer stock;
-    @ManyToMany
-    @JoinTable(name="tienda_producto",
-            joinColumns = @JoinColumn(name="producto_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tienda_id", referencedColumnName = "id"))
-    private List<Tienda> tiendas;
-    @ManyToMany
-    @JoinTable(name="compra_producto",
-            joinColumns = @JoinColumn(name="producto_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="compra_id",referencedColumnName = "id"))
-    private List<Compra> compras;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "tienda_producto",
+            joinColumns = @JoinColumn(name="producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "tienda_id")
+    )
+    private Set<Tienda> tiendas = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "compra_producto",
+            joinColumns = @JoinColumn(name="producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "compra_id")
+    )
+    private Set<Tienda> compras = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(
             name= "categoria_id",
