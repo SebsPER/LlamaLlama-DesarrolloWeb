@@ -35,7 +35,8 @@ public class Categoria {
             name="id",
             nullable = false
     )
-    private Long Id;
+    private Long id;
+        
     @Column(
             name="nombre",
             nullable = false,
