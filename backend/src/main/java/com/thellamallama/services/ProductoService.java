@@ -1,4 +1,14 @@
 package com.thellamallama.services;
 
-public interface ProductoService{
+
+import com.thellamallama.dtos.CreateProductoDto;
+import com.thellamallama.dtos.ProductoDto;
+import com.thellamallama.exceptions.BookingException;
+
+import java.util.List;
+
+public interface ProductoService {
+    ProductoDto getProductoById(Long productoId) throws BookingException;
+    List<ProductoDto> getProductos()throws BookingException;
+    ProductoDto createProducto(CreateProductoDto createProductoDto)throws BookingException;
 }
