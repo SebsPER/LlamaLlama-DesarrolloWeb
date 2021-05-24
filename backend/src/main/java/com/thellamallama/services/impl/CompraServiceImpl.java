@@ -1,8 +1,7 @@
-/*package com.thellamallama.services.impl;
+package com.thellamallama.services.impl;
 
 
 import com.thellamallama.dtos.CompraDto;
-import com.thellamallama.dtos.CreateClienteDto;
 import com.thellamallama.dtos.CreateCompraDto;
 import com.thellamallama.entities.Cliente;
 import com.thellamallama.entities.Compra;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,20 +26,17 @@ public class CompraServiceImpl implements CompraService {
 
     @Autowired
     private CompraRepository compraRepository;
-
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private TipopagoRepository tipopagoRepository;
 
     private static final ModelMapper modelMapper=new ModelMapper();
 
-    @Autowired
-
-    private TipopagoRepository tipopagoRepository;
-
 
     @Override
-    public CompraDto getCompraById(Long CompraId) throws BookingException {
-        return modelMapper.map(getCompraEntity(CompraId), CompraDto.class);
+    public CompraDto getCompraById(Long Compraid) throws BookingException {
+        return modelMapper.map(getCompraEntity(Compraid), CompraDto.class);
     }
 
     @Override
@@ -54,33 +49,32 @@ public class CompraServiceImpl implements CompraService {
     @Transactional
     @Override
     public CompraDto createCompra(CreateCompraDto createCompraDto) throws BookingException {
-        Cliente clienteID=clienteRepository.findById(createCompraDto.getClienteid())
-                .orElseThrow(()-> new NotFoundException("NOT-FOUND","NOT_FOUND"));
-        Tipo_pago tipopagoID=tipopagoRepository.findById(createCompraDto.getTipopagoid())
-                .orElseThrow(()-> new NotFoundException("NOT-FOUND","NOT_FOUND"));
-        if(compraRepository.findByClienteAndTipopago(tipopago.g))
+        Cliente clienteId = clienteRepository.findById(createCompraDto.getClienteid())
+                .orElseThrow(() -> new NotFoundException("NOT-401-1", "CLIENT_NOT_FOUND"));
+
+        Tipo_pago tipoId = tipopagoRepository.findById(createCompraDto.getTipopagoid())
+                .orElseThrow(() -> new NotFoundException("NOT-401-1", "PAYMENT_TYPE_NOT_FOUND"));
+
         Compra compra=new Compra();
-        compra.setLocator()
         compra.setFecha(createCompraDto.getFecha());
         compra.setDireccion(createCompraDto.getDireccion());
         compra.setCiudad_envio(createCompraDto.getCiudad_envio());
         compra.setDistrito_envio(createCompraDto.getDistrito_envio());
         compra.setMonto_total(createCompraDto.getMonto_total());
 
+        compra.setCliente(clienteId);
+        compra.setTipo_pago(tipoId);
 
         try {
             compra=compraRepository.save(compra);
         }catch (Exception ex){
             throw new InternalServerErrorException("INTERNAL_SERVER_ERROR","INTERNAL_SERVER_ERROR");
         }
-        return locator;
+        return modelMapper.map(getCompraEntity(compra.getId()),CompraDto.class);
     }
-    private String geneteLocator(Cliente clienteId, CreateCompraDto createCompraDto)
-            throws BookingException{
-        return clienteId.getNombre()+createCompraDto.getTipopagoid();
-    }
-    private Compra getCompraEntity(Long compraId)throws BookingException {
-        return compraRepository.findById(compraId)
+
+    private Compra getCompraEntity(Long compraid)throws BookingException {
+        return compraRepository.findById(compraid)
                 .orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));
     }
-}*/
+}
