@@ -8,11 +8,11 @@ import java.util.Date;
 @Setter
 public class CompraDto {
     private Long id;
-    private Long cod_cliente;
-    private Date fecha;
+    private Long clienteid;
+    private String fecha;
     private String direccion;
     private String ciudad_envio;
     private String distrito_envio;
     private Double monto_total;
-    private Long tipo_pago;
+    private Long tipopagoid;
 }
