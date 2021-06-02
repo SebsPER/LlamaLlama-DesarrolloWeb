@@ -1,4 +1,4 @@
-/*package com.thellamallama.controllers;
+package com.thellamallama.controllers;
 
 import com.thellamallama.dtos.CompraDto;
 import com.thellamallama.dtos.CreateCompraDto;
@@ -21,7 +21,7 @@ public class CompraController {
     private CompraService compraService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/compra/{compra}")
+    @GetMapping("/compra/{compraId}")
     public BookingResponse<CompraDto>  getComprabyId(@PathVariable Long compraId)
         throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
@@ -42,4 +42,4 @@ public class CompraController {
                 compraService.createCompra(createCompraDto));
     }
 
-}*/
+}
