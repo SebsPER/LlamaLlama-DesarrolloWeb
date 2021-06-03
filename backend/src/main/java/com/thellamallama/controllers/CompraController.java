@@ -28,7 +28,7 @@ public class CompraController {
                 compraService.getCompraById(compraId));
     }
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("compra")
+    @GetMapping("compras")
     public BookingResponse<List<CompraDto>> getCompras()
         throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",

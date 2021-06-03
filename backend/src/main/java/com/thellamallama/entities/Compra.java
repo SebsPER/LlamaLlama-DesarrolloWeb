@@ -3,9 +3,8 @@ package com.thellamallama.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -37,16 +36,6 @@ public class Compra {
             nullable = false
     )
     private Long id;
-    @ManyToOne
-    @JoinColumn(
-            name="cliente_id",
-            nullable = false,
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(
-                    name="cliente_compra_fk"
-            )
-    )
-    private Cliente cliente;
     @Column(
             name="fecha",
             nullable = false,
@@ -87,6 +76,22 @@ public class Compra {
     )
     private Tipo_pago tipo_pago;
 
-    @ManyToMany(mappedBy = "compras", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Set<Producto> productos = new HashSet<>();
+    @OneToMany(
+            mappedBy = "compra",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Compra_Producto> compra_producto=new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(
+            name="cliente_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name="cliente_copmra_fk"
+            )
+    )
+    private Cliente cliente;
+
 }

@@ -1,6 +1,7 @@
 package com.thellamallama.repositories;
 
 
+import com.thellamallama.entities.Categoria;
 import com.thellamallama.entities.Tienda;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,13 +13,12 @@ import java.util.Optional;
 //INSERT - DELETE - SELECT - TO DO PARA BASE DE DATOS
 @Repository
 public interface TiendaReposiroty extends JpaRepository<Tienda, Long> {
-    @Override
     Optional<Tienda> findById(Long id);
 
-    Optional<Tienda> findByNombre(String nombre);
+    Optional<Tienda> findByNombre(String nombreTienda);
 
-    @Query("SELECT t FROM Tienda t")
-    List<Tienda> findTiendas();
+    @Query("SELECT Rest FROM Producto Rest")
+    List<Categoria> finTienda();
 
     /*@Query("SELECT Tienda.nombre, Producto.nombre, Producto.stock FROM Tienda " +
             "JOIN Producto ON Tienda.id = Producto.id")

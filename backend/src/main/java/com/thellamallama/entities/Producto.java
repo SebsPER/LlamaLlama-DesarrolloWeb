@@ -3,9 +3,8 @@ package com.thellamallama.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(
@@ -53,21 +52,19 @@ public class Producto {
     )
     private Integer stock;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "tienda_producto",
-            joinColumns = @JoinColumn(name="producto_id"),
-            inverseJoinColumns = @JoinColumn(name = "tienda_id")
+    @OneToMany(
+            mappedBy = "producto",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY
     )
-    private Set<Tienda> tiendas = new HashSet<>();
+    private List<Tienda_Producto> productos_tiendas= new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "compra_producto",
-            joinColumns = @JoinColumn(name="producto_id"),
-            inverseJoinColumns = @JoinColumn(name = "compra_id")
+    @OneToMany(
+            mappedBy = "producto",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY
     )
-    private Set<Tienda> compras = new HashSet<>();
+    private List<Compra_Producto> compras_productos=new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(
@@ -82,3 +79,5 @@ public class Producto {
 
 
 }
+
+//manytomany @query @insert

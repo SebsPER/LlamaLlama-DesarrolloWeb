@@ -20,11 +20,11 @@ public class TiendaController {
     private TiendaService tiendaService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/tienda/{tiendaID}")
-    public BookingResponse<TiendaDto> getTiendaById(@PathVariable Long tiendaID) throws BookingException
+    @GetMapping("/tienda/{tiendaId}")
+    public BookingResponse<TiendaDto> getTiEndabyId(@PathVariable Long tiendaId) throws BookingException
     {
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
-                    tiendaService.getTiendaById(tiendaID));
+                    tiendaService.getTiendabyID(tiendaId));
 
     }
 
@@ -37,7 +37,7 @@ public class TiendaController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/tiendas")
+    @PostMapping("/tienda")
     public BookingResponse<TiendaDto> createTienda(@RequestBody CreateTiendaDto createTiendaDto)
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",

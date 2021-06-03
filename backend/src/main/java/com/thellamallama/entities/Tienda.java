@@ -3,12 +3,12 @@ package com.thellamallama.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
-        name="tiendas",
+        name="tienda",
         uniqueConstraints = {
                 @UniqueConstraint(name="tienda_nombre_unique",
                         columnNames = "nombre")
@@ -76,7 +76,11 @@ public class Tienda {
     )
     private String password;
 
-    @ManyToMany(mappedBy = "tiendas", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Set<Producto> productos = new HashSet<>();
+    @OneToMany(
+            mappedBy = "tienda",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Tienda_Producto> tienda_productos=new ArrayList<>();
 
 }
