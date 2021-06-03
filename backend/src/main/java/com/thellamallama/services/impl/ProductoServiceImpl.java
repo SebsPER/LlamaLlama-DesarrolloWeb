@@ -2,10 +2,12 @@ package com.thellamallama.services.impl;
 
 import com.thellamallama.dtos.CreateProductoDto;
 import com.thellamallama.dtos.ProductoDto;
+import com.thellamallama.entities.Categoria;
 import com.thellamallama.entities.Producto;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
+import com.thellamallama.repositories.CategoriaRepository;
 import com.thellamallama.repositories.ProductoRepository;
 import com.thellamallama.services.ProductoService;
 import org.modelmapper.ModelMapper;
@@ -23,6 +25,9 @@ public class ProductoServiceImpl implements ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     private static final ModelMapper modelMapper=new ModelMapper();
 
     @Override
@@ -38,13 +43,17 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional
     @Override
     public ProductoDto createProducto(CreateProductoDto createProductoDto) throws BookingException {
+
+        Categoria categoriaid = categoriaRepository.findById(createProductoDto.getCategoriaid())
+                .orElseThrow(()->new NotFoundException("NOT-401-1","CATEGORIA_NOT_FOUND"));
+
         Producto producto=new Producto();
         producto.setNombre(createProductoDto.getNombre());
         producto.setPrecio(createProductoDto.getPrecio());
         producto.setStock(createProductoDto.getStock());
         //producto.setTiendas(createProductoDto.getTiendaid());
         //producto.setCompras(createProductoDto.getCompraid());
-        //producto.setCategoria(createProductoDto.getCategoriaid());
+        producto.setCategoria(categoriaid);
 
         try{
             producto=productoRepository.save(producto);

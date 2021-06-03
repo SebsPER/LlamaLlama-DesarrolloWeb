@@ -2,6 +2,7 @@ package com.thellamallama.services.impl;
 
 
 import com.thellamallama.dtos.CompraDto;
+import com.thellamallama.dtos.CreateClienteDto;
 import com.thellamallama.dtos.CreateCompraDto;
 import com.thellamallama.entities.Cliente;
 import com.thellamallama.entities.Compra;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,10 +52,10 @@ public class CompraServiceImpl implements CompraService {
     @Override
     public CompraDto createCompra(CreateCompraDto createCompraDto) throws BookingException {
         Cliente clienteId = clienteRepository.findById(createCompraDto.getClienteid())
-                .orElseThrow(() -> new NotFoundException("NOT-401-1", "CLIENT_NOT_FOUND"));
+                .orElseThrow(() -> new NotFoundException("NOT-401-1", "RESTAURANT_NOT_FOUND"));
 
         Tipo_pago tipoId = tipopagoRepository.findById(createCompraDto.getTipopagoid())
-                .orElseThrow(() -> new NotFoundException("NOT-401-1", "PAYMENT_TYPE_NOT_FOUND"));
+                .orElseThrow(() -> new NotFoundException("NOT-401-1", "TURN_NOT_FOUND"));
 
         Compra compra=new Compra();
         compra.setFecha(createCompraDto.getFecha());
@@ -61,7 +63,6 @@ public class CompraServiceImpl implements CompraService {
         compra.setCiudad_envio(createCompraDto.getCiudad_envio());
         compra.setDistrito_envio(createCompraDto.getDistrito_envio());
         compra.setMonto_total(createCompraDto.getMonto_total());
-
         compra.setCliente(clienteId);
         compra.setTipo_pago(tipoId);
 
