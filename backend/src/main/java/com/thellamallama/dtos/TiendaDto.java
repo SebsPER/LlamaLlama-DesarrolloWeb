@@ -8,7 +8,7 @@ import lombok.Setter;
 public class TiendaDto {
     private Long id;
     private String nombre;
-    private Integer RUC;
+    private Long ruc;
     private String razon_social;
     private String direccion;
     private String nombre_encargado;
