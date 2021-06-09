@@ -6,7 +6,7 @@ import com.thellamallama.entities.Tienda;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
-import com.thellamallama.repositories.TiendaReposiroty;
+import com.thellamallama.repositories.TiendaRepository;
 import com.thellamallama.services.TiendaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class TiendaServiceImpl implements TiendaService {
 
     @Autowired
-    private TiendaReposiroty tiendaReposiroty;
+    private TiendaRepository tiendaRepository;
 
     //@Autowired
     //private Tienda_ProductoRepository tienda_productoRepository;
@@ -34,15 +34,13 @@ public class TiendaServiceImpl implements TiendaService {
 
     @Override
     public List<TiendaDto> getTiendas() throws BookingException {
-        List<Tienda> tiendasEntity=tiendaReposiroty.findAll();
+        List<Tienda> tiendasEntity= tiendaRepository.findAll();
         return tiendasEntity.stream().map(tienda -> modelMapper.map(tienda,TiendaDto.class))
                 .collect(Collectors.toList());
     }
     @Transactional
     @Override
     public TiendaDto createTienda(CreateTiendaDto createTiendaDto) throws BookingException {
-       /// List<Tienda_Producto> tienda_productoid= (List<Tienda_Producto>) tienda_productoRepository.findById(createTiendaDto.getTienda_productoid())
-       ///         .orElseThrow(()-> new NotFoundException("NOT-404-1","RESTAURANT_NOT_FOUND"));
 
         Tienda tienda=new Tienda();
         tienda.setNombre(createTiendaDto.getNombre());
@@ -50,19 +48,20 @@ public class TiendaServiceImpl implements TiendaService {
         tienda.setPassword(createTiendaDto.getPassword());
         tienda.setNombre_encargado(createTiendaDto.getNombre_encargado());
         tienda.setRazon_social(createTiendaDto.getRazon_social());
-        tienda.setRUC(createTiendaDto.getRUC());
-       /// tienda.setTienda_productos(tienda_productoid);
+        tienda.setRUC(createTiendaDto.getRuc());
+
+        //tienda= tiendaRepository.save(tienda);
         try{
-            tienda=tiendaReposiroty.save(tienda);
+            tienda= tiendaRepository.save(tienda);
         }catch(Exception ex){
-            throw new InternalServerErrorException("iiINTERNAL_SERVER_ERROR","iiINTERNAL_SERVER_ERROR");
+            throw new InternalServerErrorException("INTERNAL_SERVER_ERROR","INTERNAL_SERVER_ERROR");
         }
 
         return modelMapper.map(getTiendaEntity(tienda.getId()),TiendaDto.class);
     }
 
     private Tienda getTiendaEntity(Long tiendaid)throws BookingException {
-        return tiendaReposiroty.findById(tiendaid)
+        return tiendaRepository.findById(tiendaid)
                 .orElseThrow(()-> new NotFoundException("NOTFOUND-404","TIENDA_NOTFOUND-404"));
     }
 }
