@@ -44,11 +44,10 @@ public class Tienda {
     private String nombre;
 
     @Column(
-            name="RUC",
-            nullable = false
-
+            name="RUC"//,
+            //nullable = false
     )
-    private Integer RUC;
+    private Long RUC;
 
     @Column(
             name="razon_social",
