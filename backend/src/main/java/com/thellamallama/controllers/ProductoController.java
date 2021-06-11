@@ -23,7 +23,7 @@ public class ProductoController {
     private ProductoService productoService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/product/{productId}")
+    @GetMapping("/product/{productoId}")
     public BookingResponse<ProductoDto> getProductById(@PathVariable Long productoId)
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
