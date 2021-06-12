@@ -1,0 +1,31 @@
+<div class="body">
+    <div class="login">
+        <h1 class="h3 mb-3 fw-normal">Login</h1>
+        <mat-form-field class="ancho" appearance="fill" > 
+            <mat-label> Usuario </mat-label>
+            <input matInput placeholder="Usuario" [(ngModel)] = "user">
+        </mat-form-field>
+        <mat-form-field class="ancho" appearance="fill">
+            <mat-label> Contraseña </mat-label>
+            <input matInput placeholder="Contraseña" type="password" [(ngModel)] = "password">
+        </mat-form-field>
+        <br>
+        <button (click)='ingresar()'
+            class="ancho"
+            mat-raised-button mat-button color="primary">
+            Ingresar
+        </button>
+        <br>
+        <div>
+            <nav>
+                <h5>Don't have an account?
+                    <a class="mbutton" style="float: right;" routerLink= "/register" > Sign Up </a>
+                </h5>
+                <h6>
+                    <a routerLink = "/forgotPassword"> Forgot your password</a> 
+                </h6>
+            </nav>
+        </div>
+        
+    </div>
+</div>

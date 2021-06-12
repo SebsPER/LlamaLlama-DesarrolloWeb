@@ -1,0 +1,26 @@
+<div class="body">
+    <div class="register">
+        <h1 class="h3 mb-3 fw.normal"> Register </h1>
+        <mat-form-field class="ancho" appearance="fill">
+            <mat-label> User </mat-label>
+            <input matInput placeholder="User" [(ngModel)] = "user">
+        </mat-form-field>
+        <mat-form-field class="ancho" appearance="fill">
+            <mat-label> E-Mail </mat-label>
+            <input matInput placeholder="E-Mail" [(ngModel)] = "email">
+        </mat-form-field>
+        <mat-form-field class="ancho" appearance="fill">
+            <mat-label> User </mat-label>
+            <input matInput placeholder="Password" [(ngModel)] = "password">
+        </mat-form-field>
+        <mat-form-field class="ancho" appearance="fill">
+            <mat-label> User </mat-label>
+            <input matInput placeholder="Confirm Password" [(ngModel)] = "confirmpassword">
+        </mat-form-field>
+        <button (click)='register()'
+            class="ancho"
+            mat-raised-button mat-button color="primary">
+            Registrar
+        </button>
+    </div>
+</div>
