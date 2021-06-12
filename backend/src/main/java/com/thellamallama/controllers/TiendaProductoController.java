@@ -1,13 +1,10 @@
 package com.thellamallama.controllers;
 
-import com.thellamallama.dtos.CategoriaDto;
-import com.thellamallama.dtos.CreateCategoriaDto;
-import com.thellamallama.dtos.CreateProductoDto;
-import com.thellamallama.dtos.ProductoDto;
+import com.thellamallama.dtos.CreateTiendaProductoDto;
+import com.thellamallama.dtos.TiendaProductoDto;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.responses.BookingResponse;
-import com.thellamallama.services.CategoriaService;
-import com.thellamallama.services.ProductoService;
+import com.thellamallama.services.TiendaProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,30 +14,30 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:4200")
 @RequestMapping( path=  "/llamallama"+"/v1")
-public class CategoriaController {
+public class TiendaProductoController {
 
     @Autowired
-    private CategoriaService categoriaService;
+    private TiendaProductoService tienda_productoService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/categoria/{categoriaId}")
-    public BookingResponse<CategoriaDto> getCategoriaById(@PathVariable Long categoriaId)
+    @GetMapping("/tienda_producto/{tienda_productoId}")
+    public BookingResponse<TiendaProductoDto> getTienda_productoById(@PathVariable Long tienda_productoId)
             throws BookingException {
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
-                categoriaService.getCategoriaById(categoriaId));
+                tienda_productoService.getTienda_ProductoById(tienda_productoId));
     }
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/categoria")
-    public BookingResponse<List<CategoriaDto>> getCategorias()
+    @GetMapping("/tienda_producto")
+    public BookingResponse<List<TiendaProductoDto>> getTienda_producto()
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
-                categoriaService.getCategorias());
+                tienda_productoService.getTtienda_Productos());
     }
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/categoria")
-    public BookingResponse<CategoriaDto> createCategoria(@RequestBody CreateCategoriaDto createCategoriaDto)
+    @PostMapping("/tienda_producto")
+    public BookingResponse<TiendaProductoDto> createTienda_producto(@RequestBody CreateTiendaProductoDto createTienda_productoDto)
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
-                categoriaService.createCategoria(createCategoriaDto));
+                tienda_productoService.createTienda_Producto(createTienda_productoDto));
     }
 }

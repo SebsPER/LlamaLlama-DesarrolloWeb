@@ -80,6 +80,6 @@ public class Tienda {
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
-    private List<Tienda_Producto> tienda_productos=new ArrayList<>();
+    private List<TiendaProducto> tienda_productos=new ArrayList<>();
 
 }

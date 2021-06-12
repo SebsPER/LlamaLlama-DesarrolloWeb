@@ -7,7 +7,7 @@ import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
 import com.thellamallama.repositories.TipopagoRepository;
-import com.thellamallama.services.Tipo_de_PagoService;
+import com.thellamallama.services.TipoPagoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TipodePagoServiceImpl implements Tipo_de_PagoService {
+public class TipodePagoServiceImpl implements TipoPagoService {
     @Autowired
     private TipopagoRepository tipopagoRepository;
 

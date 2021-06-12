@@ -13,6 +13,7 @@ import lombok.Getter;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping(path="/llamallama"+"/v1")
 public class TiendaController {
 

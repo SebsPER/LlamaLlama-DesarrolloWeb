@@ -20,11 +20,8 @@ import java.util.stream.Collectors;
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
-
-
     @Autowired
     private ProductoRepository productoRepository;
-
     @Autowired
     private CategoriaRepository categoriaRepository;
 

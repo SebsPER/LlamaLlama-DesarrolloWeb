@@ -1,5 +1,7 @@
 package com.thellamallama.dtos;
 
+import com.thellamallama.entities.Cliente;
+import com.thellamallama.entities.Tipo_pago;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;

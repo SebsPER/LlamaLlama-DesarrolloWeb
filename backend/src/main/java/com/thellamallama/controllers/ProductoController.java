@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping(path="/llamallama"+"/v1")
 public class ProductoController {
 
@@ -24,14 +25,14 @@ public class ProductoController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/product/{productoId}")
-    public BookingResponse<ProductoDto> getProductById(@PathVariable Long productoId)
+    public BookingResponse<ProductoDto> getProductoById(@PathVariable Long productoId)
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 productoService.getProductoById(productoId));
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products")
-    public BookingResponse<List<ProductoDto>> getProducts()
+    public BookingResponse<List<ProductoDto>> getProductos()
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 productoService.getProductos());

@@ -5,7 +5,7 @@ import com.thellamallama.dtos.CreateTipodePagoDto;
 import com.thellamallama.dtos.TipodePagoDto;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.responses.BookingResponse;
-import com.thellamallama.services.Tipo_de_PagoService;
+import com.thellamallama.services.TipoPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping( path=  "/llamallama"+"/v1")
 public class TipodePagoController {
 
     @Autowired
-    private Tipo_de_PagoService tipodePagoService;
+    private TipoPagoService tipodePagoService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tipodepago/{tipodepagoId}")

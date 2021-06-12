@@ -57,14 +57,14 @@ public class Producto {
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
-    private List<Tienda_Producto> productos_tiendas= new ArrayList<>();
+    private List<TiendaProducto> productos_tiendas= new ArrayList<>();
 
     @OneToMany(
             mappedBy = "producto",
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
-    private List<Compra_Producto> compras_productos=new ArrayList<>();
+    private List<CompraProducto> compras_productos=new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(

@@ -81,7 +81,7 @@ public class Compra {
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
-    private List<Compra_Producto> compra_producto=new ArrayList<>();
+    private List<CompraProducto> compra_producto=new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(
