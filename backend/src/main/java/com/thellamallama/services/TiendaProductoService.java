@@ -7,8 +7,8 @@ import com.thellamallama.exceptions.BookingException;
 import java.util.List;
 
 public interface TiendaProductoService {
-    TiendaProductoDto getTienda_ProductoById(Long tienda_productoid) throws BookingException;
-    List<TiendaProductoDto> getTtienda_Productos()throws  BookingException;
+    TiendaProductoDto getTienda_ProductoById(Long tiendaid, Long productoid) throws BookingException;
+    List<TiendaProductoDto> getTiendaById(Long tiendaid) throws BookingException;
+    List<TiendaProductoDto> getAll()throws  BookingException;
     TiendaProductoDto createTienda_Producto(CreateTiendaProductoDto createTienda_productoDto)throws BookingException;
-
 }

@@ -1,17 +1,14 @@
 package com.thellamallama.entities;
 
-import com.thellamallama.entities.Compra;
-import com.thellamallama.entities.Producto;
 import lombok.*;
-import com.thellamallama.entities.CompositeKey;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
-@IdClass(CompositeKey.class)
+@IdClass(CompositeKeyCP.class)
 @Table(
-        name="CompraProducto"
+        name="compraProductos"
         /*uniqueConstraints = {
                 @UniqueConstraint(name="compra_producto_codigo_unique",
                         columnNames = "producto_id")

@@ -1,5 +1,6 @@
 package com.thellamallama.repositories;
 
+import com.thellamallama.entities.CompositeKeyTP;
 import com.thellamallama.entities.TiendaProducto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,11 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TiendaProductoRepository extends JpaRepository<TiendaProducto, Long>  {
-    Optional<TiendaProducto> findById(Long id);
+public interface TiendaProductoRepository extends JpaRepository<TiendaProducto, CompositeKeyTP>  {
+    Optional<TiendaProducto> findByTiendaidAndProductoid(Long tiendaid, Long productoid);
+    List<TiendaProducto> findByTiendaid(Long tiendaid);
 
-    Optional<TiendaProducto> findByDate(String dateTienda_Producto);
-
-    @Query("SELECT Rest FROM Producto Rest")
-    List<TiendaProducto> findTienda_Productos();
+    /*@Query("SELECT Rest FROM Producto Rest")
+    List<TiendaProducto> findTienda_Productos();*/
 }

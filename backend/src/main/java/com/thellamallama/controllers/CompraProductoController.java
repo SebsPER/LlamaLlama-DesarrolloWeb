@@ -38,10 +38,10 @@ public class CompraProductoController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/compra_productos")
-    public BookingResponse<List<CompraProductoDto>> getCompra_Productos()
+    public BookingResponse<List<CompraProductoDto>> getAll()
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
-                compraproductoService.getCompra_Productos());
+                compraproductoService.getAll());
     }
 
     @ResponseStatus(HttpStatus.OK)

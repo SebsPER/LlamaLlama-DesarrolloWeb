@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(
-        name="Tipo_pago",
+        name="Tipopago",
         uniqueConstraints = {
                 @UniqueConstraint(name="tipopago_nombre_unique",
                         columnNames = "nombre")

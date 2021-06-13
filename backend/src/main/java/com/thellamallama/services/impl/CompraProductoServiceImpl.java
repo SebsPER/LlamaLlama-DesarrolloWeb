@@ -45,7 +45,7 @@ public class CompraProductoServiceImpl implements CompraProductoService {
     }
 
     @Override
-    public List<CompraProductoDto> getCompra_Productos() throws BookingException {
+    public List<CompraProductoDto> getAll() throws BookingException {
         List<CompraProducto> compra_productosEntity = compra_productoRespository.findAll();
         return compra_productosEntity.stream().map(compra_producto -> modelMapper.map(compra_producto, CompraProductoDto.class))
                 .collect(Collectors.toList());

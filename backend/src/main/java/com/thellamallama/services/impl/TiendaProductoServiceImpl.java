@@ -28,7 +28,7 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
     @Autowired
     private TiendaProductoRepository tienda_productoRepository;
     @Autowired
-    private TiendaRepository tiendaReposiroty;
+    private TiendaRepository tiendaRepository;
     @Autowired
     private ProductoRepository productoRepository;
 
@@ -36,41 +36,48 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
 
 
     @Override
-    public TiendaProductoDto getTienda_ProductoById(Long tienda_productoid) throws BookingException {
-        return modelMapper.map(getTienda_ProductoEntity(tienda_productoid), TiendaProductoDto.class);
+    public TiendaProductoDto getTienda_ProductoById(Long tiendaid, Long productoid) throws BookingException {
+        return modelMapper.map(getTienda_ProductoEntity(tiendaid, productoid), TiendaProductoDto.class);
     }
 
     @Override
-    public List<TiendaProductoDto> getTtienda_Productos() throws BookingException {
+    public List<TiendaProductoDto> getTiendaById(Long tiendaid) throws BookingException {
+        List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findByTiendaid(tiendaid);
+        return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TiendaProductoDto> getAll() throws BookingException {
         List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findAll();
         return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
     }
     @Transactional
     @Override
     public TiendaProductoDto createTienda_Producto(CreateTiendaProductoDto createTienda_productoDto) throws BookingException {
-        Tienda tiendaid= tiendaReposiroty.findById(createTienda_productoDto.getTiendaid())
+        Tienda tienda= tiendaRepository.findById(createTienda_productoDto.getTiendaid())
                 .orElseThrow(()-> new NotFoundException("NOT-401-1","TIENDA_ID_NOT_FOUND"));
 
-        Producto productoid = productoRepository.findById(createTienda_productoDto.getProductoid())
-                .orElseThrow(()-> new NotFoundException("NOT-401-1","TIENDA_ID_NOT_FOUND"));
-
+        Producto producto = productoRepository.findById(createTienda_productoDto.getProductoid())
+                .orElseThrow(()-> new NotFoundException("NOT-401-1","PRODUCTO_ID_NOT_FOUND"));
 
         TiendaProducto tienda_producto=new TiendaProducto();
-        tienda_producto.setCant_tiendas(createTienda_productoDto.getCant_tiendas());
-        tienda_producto.setDate(createTienda_productoDto.getDate());
-        tienda_producto.setProducto(productoid);
-        tienda_producto.setTienda(tiendaid);
+        tienda_producto.setStock(createTienda_productoDto.getStock());
+        tienda_producto.setPrecio(createTienda_productoDto.getPrecio());
+        tienda_producto.setTiendaid(createTienda_productoDto.getTiendaid());
+        tienda_producto.setProductoid(createTienda_productoDto.getProductoid());
+        tienda_producto.setProducto(producto);
+        tienda_producto.setTienda(tienda);
 
         try{
             tienda_producto=tienda_productoRepository.save(tienda_producto);
         }catch (Exception ex){
             throw new InternalServerErrorException("INTERLANL_SERVER_ERROR","INTERNAL_SERVER_ERROR");
         }
-        return modelMapper.map(getTienda_ProductoEntity(tienda_producto.getId()), TiendaProductoDto.class);
+        return modelMapper.map(getTienda_ProductoEntity(tienda.getId(), producto.getId()), TiendaProductoDto.class);
     }
 
-    private TiendaProducto getTienda_ProductoEntity(Long tienda_productoId)throws BookingException{
-        return tienda_productoRepository.findById(tienda_productoId).
+    private TiendaProducto getTienda_ProductoEntity(Long tiendaid, Long productoid)throws BookingException{
+        return tienda_productoRepository.findByTiendaidAndProductoid(tiendaid, productoid).
                 orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));
     }
 }

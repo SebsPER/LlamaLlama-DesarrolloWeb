@@ -6,8 +6,8 @@ import java.util.Date;
 
 @Getter
 public class CreateTiendaProductoDto {
-    private Integer cant_tiendas;
-    private Date date;
+    private Integer stock;
+    private Integer precio;
     private Long tiendaid;
     private Long productoid;
 }

@@ -8,12 +8,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@IdClass(CompositeKeyTP.class)
 @Table(
-        name="Producto_Tienda",
-        uniqueConstraints = {
+        name="tiendaProductos"
+        /*uniqueConstraints = {
                 @UniqueConstraint(name="producto_tienda_codigo_unique",
                         columnNames = "id")
-        }
+        }*/
 )
 @Getter
 @Setter
@@ -21,7 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TiendaProducto {
-    @Id
+    /*@Id
     @SequenceGenerator(
             name="tienda_producto_sequense",
             sequenceName = "tienda_producto_sequense",
@@ -35,36 +36,50 @@ public class TiendaProducto {
             name="id",
             nullable = false
     )
-    private Long id;
+    private Long id;*/
 
     @Column(
-            name="cant_tiendas",
+            name="stock",
             nullable = false
     )
-    private Integer cant_tiendas;
+    private Integer stock;
+
     @Column(
-            name="date",
+            name="precio",
             nullable = false
     )
-    private Date date;
+    private Integer precio;
+
+    @Id
+    @Column(name = "productoid")
+    private Long productoid;
+
     @ManyToOne
     @JoinColumn(
-            name="producto_id",
+            name="productoid",
             nullable = false,
             referencedColumnName = "id",
+            insertable = false,
+            updatable = false,
             foreignKey = @ForeignKey(
-                    name="producto_tiendaYproducto_fk"
+                    name="productoIdFk"
             )
     )
     private Producto producto;
 
+    @Id
+    @Column(name = "tiendaid")
+    private Long tiendaid;
+
     @ManyToOne
     @JoinColumn(
-            name="tienda_id",
+            name="tiendaid",
             nullable = false,
             referencedColumnName = "id",
+            insertable = false,
+            updatable = false,
             foreignKey = @ForeignKey(
-                    name="tienda_productoYtienda_fk"
+                    name="tiendaIdFk"
             )
     )
     private Tienda tienda;
