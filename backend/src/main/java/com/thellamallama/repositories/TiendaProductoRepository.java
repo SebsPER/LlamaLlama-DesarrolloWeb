@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface TiendaProductoRepository extends JpaRepository<TiendaProducto, CompositeKeyTP>  {
     Optional<TiendaProducto> findByTiendaidAndProductoid(Long tiendaid, Long productoid);
     List<TiendaProducto> findByTiendaid(Long tiendaid);
+    Long deleteByTiendaidAndProductoid(Long tiendaid, Long productoid);
 
     /*@Query("SELECT Rest FROM Producto Rest")
     List<TiendaProducto> findTienda_Productos();*/

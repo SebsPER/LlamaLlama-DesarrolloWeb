@@ -91,6 +91,12 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
         return modelMapper.map(getTienda_ProductoEntity(tienda.getId(), producto.getId()), TiendaProductoDto.class);
     }
 
+    @Transactional
+    @Override
+    public void deleteByTiendaidAndProductoid(Long tiendaid, Long productoid) {
+        tienda_productoRepository.deleteByTiendaidAndProductoid(tiendaid, productoid);
+    }
+
     private TiendaProducto getTienda_ProductoEntity(Long tiendaid, Long productoid)throws BookingException{
         return tienda_productoRepository.findByTiendaidAndProductoid(tiendaid, productoid).
                 orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));

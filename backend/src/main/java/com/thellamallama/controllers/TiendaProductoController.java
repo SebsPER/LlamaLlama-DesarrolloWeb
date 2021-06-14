@@ -60,4 +60,9 @@ public class TiendaProductoController {
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 tienda_productoService.createTienda_Producto(createTienda_productoDto));
     }
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/tiendaProducto/{tiendaid}/{productoid}")
+    public void deleteByTiendaidAndProductoid(@PathVariable Long tiendaid, @PathVariable Long productoid){
+        this.tienda_productoService.deleteByTiendaidAndProductoid(tiendaid, productoid);
+    }
 }
