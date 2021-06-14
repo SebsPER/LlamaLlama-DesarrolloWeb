@@ -81,6 +81,16 @@ public class ProductoServiceImpl implements ProductoService {
         }
         return modelMapper.map(getProductEntity(producto.getId()),ProductoDto.class);
     }
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        productoRepository.deleteById(id);
+    }
+    @Transactional
+    @Override
+    public void deleteByNombre(String nombre) {
+        productoRepository.deleteByNombre(nombre);
+    }
 
     private Producto getProductEntity(Long ProductoId)throws BookingException{
         return productoRepository.findById(ProductoId).

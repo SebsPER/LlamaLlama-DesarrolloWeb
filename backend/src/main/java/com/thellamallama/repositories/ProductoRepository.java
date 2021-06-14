@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface ProductoRepository extends JpaRepository<Producto,Long> {
 
     Optional<Producto> findById(Long id);
-
     Optional<Producto> findByNombre(String nombreProducto);
+    Long deleteByNombre(String nombre);
 
     @Query("SELECT Rest FROM Producto Rest")
     List<Producto> findProductos();

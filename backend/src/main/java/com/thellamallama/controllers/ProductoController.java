@@ -51,4 +51,14 @@ public class ProductoController {
         return new BookingResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
                 productoService.createProducto(createProductoDto));
     }
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/productdi/{id}")
+    public void deleteById(@PathVariable Long id){
+        this.productoService.deleteById(id);
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/productdn/{nombre}")
+    public void deleteByName(@PathVariable String nombre){
+        this.productoService.deleteByNombre(nombre);
+    }
 }
