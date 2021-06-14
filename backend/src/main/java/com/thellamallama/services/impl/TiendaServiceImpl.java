@@ -9,6 +9,7 @@ import com.thellamallama.exceptions.NotFoundException;
 import com.thellamallama.repositories.TiendaRepository;
 import com.thellamallama.services.TiendaService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,11 +34,24 @@ public class TiendaServiceImpl implements TiendaService {
     }
 
     @Override
+    public TiendaDto getTiendabyNombre(String nombre) throws BookingException {
+        return modelMapper.map(getTiendaEntity(nombre), TiendaDto.class);
+    }
+
+    @Override
     public List<TiendaDto> getTiendas() throws BookingException {
         List<Tienda> tiendasEntity= tiendaRepository.findAll();
         return tiendasEntity.stream().map(tienda -> modelMapper.map(tienda,TiendaDto.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public TiendaDto update(TiendaDto tiendaDto) throws BookingException {
+        Tienda tienda = dtoEntity(tiendaDto);
+        Tienda saveT = this.tiendaRepository.save(tienda);
+        return new TiendaDto(saveT);
+    }
+
     @Transactional
     @Override
     public TiendaDto createTienda(CreateTiendaDto createTiendaDto) throws BookingException {
@@ -50,7 +64,6 @@ public class TiendaServiceImpl implements TiendaService {
         tienda.setRazon_social(createTiendaDto.getRazon_social());
         tienda.setRUC(createTiendaDto.getRuc());
 
-        //tienda= tiendaRepository.save(tienda);
         try{
             tienda= tiendaRepository.save(tienda);
         }catch(Exception ex){
@@ -63,5 +76,14 @@ public class TiendaServiceImpl implements TiendaService {
     private Tienda getTiendaEntity(Long tiendaid)throws BookingException {
         return tiendaRepository.findById(tiendaid)
                 .orElseThrow(()-> new NotFoundException("NOTFOUND-404","TIENDA_NOTFOUND-404"));
+    }
+    private Tienda getTiendaEntity(String nombre)throws BookingException {
+        return tiendaRepository.findByNombre(nombre)
+                .orElseThrow(()-> new NotFoundException("NOTFOUND-404","TIENDA_NOTFOUND-404"));
+    }
+    private Tienda dtoEntity(TiendaDto tDto){
+        Tienda t = new Tienda();
+        BeanUtils.copyProperties(tDto, t);
+        return t;
     }
 }

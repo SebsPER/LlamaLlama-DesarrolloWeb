@@ -41,6 +41,14 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    public ProductoDto getProductoByName(String nombre) throws BookingException {
+        Producto data = getProductEntity(nombre);
+        ProductoDto map = modelMapper.map(getProductEntity(nombre),ProductoDto.class);
+        map.setCategoriaid(data.getCategoria().getId());
+        return map;
+    }
+
+    @Override
     public List<ProductoDto> getProductos() throws BookingException {
         List<Producto> productosEntity=productoRepository.findAll();
         Stream<ProductoDto> maps = productosEntity.stream().map(producto->modelMapper.map(producto,ProductoDto.class));
@@ -76,6 +84,10 @@ public class ProductoServiceImpl implements ProductoService {
 
     private Producto getProductEntity(Long ProductoId)throws BookingException{
         return productoRepository.findById(ProductoId).
+                orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));
+    }
+    private Producto getProductEntity(String nombre)throws BookingException{
+        return productoRepository.findByNombre(nombre).
                 orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));
     }
 }

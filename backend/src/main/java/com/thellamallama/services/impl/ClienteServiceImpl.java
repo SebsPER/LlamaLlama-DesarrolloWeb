@@ -2,13 +2,16 @@ package com.thellamallama.services.impl;
 
 import com.thellamallama.dtos.ClienteDto;
 import com.thellamallama.dtos.CreateClienteDto;
+import com.thellamallama.dtos.TiendaDto;
 import com.thellamallama.entities.Cliente;
+import com.thellamallama.entities.Tienda;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
 import com.thellamallama.repositories.ClienteRepository;
 import com.thellamallama.services.ClienteService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +38,13 @@ public class ClienteServiceImpl implements ClienteService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public ClienteDto update(ClienteDto clienteDto) throws BookingException {
+        Cliente cliente = dtoEntity(clienteDto);
+        Cliente saveC = this.clienteRepository.save(cliente);
+        return new ClienteDto(saveC);
+    }
+
     @Transactional
     @Override
     public ClienteDto createCliente(CreateClienteDto createClienteDto) throws BookingException {
@@ -58,6 +68,10 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository.findById(clienteid)
                 .orElseThrow(()-> new NotFoundException("NOT-FOUND-404","NOT-FOUND-404"));
     }
-
+    private Cliente dtoEntity(ClienteDto cDto){
+        Cliente c = new Cliente();
+        BeanUtils.copyProperties(cDto, c);
+        return c;
+    }
 
 }

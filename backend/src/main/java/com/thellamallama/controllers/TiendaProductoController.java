@@ -1,5 +1,6 @@
 package com.thellamallama.controllers;
 
+import com.thellamallama.dtos.ClienteDto;
 import com.thellamallama.dtos.CreateTiendaProductoDto;
 import com.thellamallama.dtos.TiendaProductoDto;
 import com.thellamallama.exceptions.BookingException;
@@ -40,6 +41,17 @@ public class TiendaProductoController {
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 tienda_productoService.getAll());
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/tpUpdate/{tiendaid}/{productoid}/{stock}/{precio}/{descuento}") //@RequestBody TiendaProductoDto tpDto
+    public BookingResponse<TiendaProductoDto> update(@PathVariable Long tiendaid,
+                                                     @PathVariable Long productoid,
+                                                     @PathVariable Integer stock,
+                                                     @PathVariable Integer precio,
+                                                     @PathVariable float descuento) throws
+            BookingException{
+        return new BookingResponse<>("Succes", String.valueOf(HttpStatus.OK),"OK",
+                tienda_productoService.update(tiendaid, productoid, stock, precio, descuento));
     }
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/tienda_producto")

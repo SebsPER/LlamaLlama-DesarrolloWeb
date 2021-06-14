@@ -10,5 +10,6 @@ public interface TiendaProductoService {
     TiendaProductoDto getTienda_ProductoById(Long tiendaid, Long productoid) throws BookingException;
     List<TiendaProductoDto> getTiendaById(Long tiendaid) throws BookingException;
     List<TiendaProductoDto> getAll()throws  BookingException;
+    TiendaProductoDto update(Long tiendaid, Long productoid, Integer stock, Integer precio, float descuento) throws BookingException;
     TiendaProductoDto createTienda_Producto(CreateTiendaProductoDto createTienda_productoDto)throws BookingException;
 }

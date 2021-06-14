@@ -17,6 +17,7 @@ public interface TiendaRepository extends JpaRepository<Tienda, Long> {
 
     Optional<Tienda> findByNombre(String nombreTienda);
 
+
     @Query("SELECT Rest FROM Producto Rest")
     List<Categoria> finTienda();
 
