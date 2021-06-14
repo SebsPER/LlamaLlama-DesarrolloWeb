@@ -17,4 +17,5 @@ public class CompraDto {
     private Integer monto_total;
     private Long tipopagoid;
     private Long clienteid;
+
 }

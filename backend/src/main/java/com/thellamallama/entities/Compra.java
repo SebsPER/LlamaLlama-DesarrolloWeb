@@ -65,13 +65,13 @@ public class Compra {
             nullable = false
     )
     private Integer monto_total;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name="tipo_pago_id",
+            name="tipoPagoid",
             nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(
-                    name="tipopago_compra_fk"
+                    name="tipopagoCompraFk"
             )
     )
     private Tipo_pago tipo_pago;
@@ -83,13 +83,13 @@ public class Compra {
     )
     private List<CompraProducto> compra_producto=new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name="cliente_id",
+            name="clienteid",
             nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(
-                    name="cliente_copmra_fk"
+                    name="clienteCompraFk"
             )
     )
     private Cliente cliente;

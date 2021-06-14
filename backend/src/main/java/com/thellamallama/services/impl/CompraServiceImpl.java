@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.awt.print.Book;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class CompraServiceImpl implements CompraService {
@@ -38,14 +39,26 @@ public class CompraServiceImpl implements CompraService {
 
     @Override
     public CompraDto getCompraById(Long Compraid) throws BookingException {
-        return modelMapper.map(getCompraEntity(Compraid), CompraDto.class);
+        Compra data = getCompraEntity(Compraid);
+        CompraDto map = modelMapper.map(getCompraEntity(Compraid), CompraDto.class);
+        map.setTipopagoid(data.getTipo_pago().getId());
+        map.setClienteid(data.getCliente().getId());
+        return map;
+        //return modelMapper.map(getCompraEntity(Compraid), CompraDto.class);
     }
 
     @Override
     public List<CompraDto> getCompras() throws BookingException {
         List<Compra> compraEntity=compraRepository.findAll();
-        return compraEntity.stream().map(compra->modelMapper.map(compra,CompraDto.class))
-                .collect(Collectors.toList());
+        Stream<CompraDto> maps = compraEntity.stream().map(compra->modelMapper.map(compra,CompraDto.class));
+        //long size = compraEntity.stream().map(compra->modelMapper.map(compra,CompraDto.class)).count();
+        List<CompraDto> arrayM= maps.collect(Collectors.toList());
+        for (CompraDto m: arrayM){
+            Compra data = getCompraEntity(m.getId());
+            m.setTipopagoid(data.getTipo_pago().getId());
+            m.setClienteid(data.getCliente().getId());
+        }
+        return arrayM;
     }
 
     @Transactional
@@ -63,8 +76,8 @@ public class CompraServiceImpl implements CompraService {
         compra.setCiudad_envio(createCompraDto.getCiudad_envio());
         compra.setDistrito_envio(createCompraDto.getDistrito_envio());
         compra.setMonto_total(createCompraDto.getMonto_total());
-        compra.setCliente(clienteId);
         compra.setTipo_pago(tipoId);
+        compra.setCliente(clienteId);
 
         try {
             compra=compraRepository.save(compra);

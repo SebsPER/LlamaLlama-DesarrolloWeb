@@ -10,8 +10,8 @@ import java.util.List;
 @Table(
         name="cliente",
         uniqueConstraints = {
-                @UniqueConstraint(name="cliente_nombre_unique",
-                        columnNames = "nombre")
+                @UniqueConstraint(name="cliente_dni_unique",
+                        columnNames = "dni")
         }
 )
 @Getter

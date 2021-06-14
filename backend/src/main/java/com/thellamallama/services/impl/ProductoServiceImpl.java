@@ -1,8 +1,10 @@
 package com.thellamallama.services.impl;
 
+import com.thellamallama.dtos.CompraDto;
 import com.thellamallama.dtos.CreateProductoDto;
 import com.thellamallama.dtos.ProductoDto;
 import com.thellamallama.entities.Categoria;
+import com.thellamallama.entities.Compra;
 import com.thellamallama.entities.Producto;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
@@ -29,13 +33,23 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoDto getProductoById(Long ProductoId) throws BookingException {
-        return modelMapper.map(getProductEntity(ProductoId),ProductoDto.class);
+        Producto data = getProductEntity(ProductoId);
+        ProductoDto map = modelMapper.map(getProductEntity(ProductoId),ProductoDto.class);
+        map.setCategoriaid(data.getCategoria().getId());
+        return map;
+        //return modelMapper.map(getProductEntity(ProductoId),ProductoDto.class);
     }
 
     @Override
     public List<ProductoDto> getProductos() throws BookingException {
-        List<Producto> productoEntity = productoRepository.findAll();
-        return productoEntity.stream().map(producto -> modelMapper.map(producto,ProductoDto.class)).collect(Collectors.toList());
+        List<Producto> productosEntity=productoRepository.findAll();
+        Stream<ProductoDto> maps = productosEntity.stream().map(producto->modelMapper.map(producto,ProductoDto.class));
+        List<ProductoDto> arrayM= maps.collect(Collectors.toList());
+        for (ProductoDto m: arrayM){
+            Producto data = getProductEntity(m.getId());
+            m.setCategoriaid(data.getCategoria().getId());
+        }
+        return arrayM;
     }
     @Transactional
     @Override
