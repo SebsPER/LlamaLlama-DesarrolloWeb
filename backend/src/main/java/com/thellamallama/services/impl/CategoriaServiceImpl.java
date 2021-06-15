@@ -45,7 +45,7 @@ public class CategoriaServiceImpl implements CategoriaService{
     @Override
     public CategoriaDto createCategoria(CreateCategoriaDto createCategoriaDto) throws BookingException {
         Categoria categoria = new Categoria();
-        categoria.setNombre(createCategoriaDto.getDescripcion());
+        categoria.setNombre(createCategoriaDto.getNombre());
         categoria.setDescripcion(createCategoriaDto.getDescripcion());
         try{
             categoria=categoriaRepository.save(categoria);

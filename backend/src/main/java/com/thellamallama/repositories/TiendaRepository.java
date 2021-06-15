@@ -17,10 +17,6 @@ public interface TiendaRepository extends JpaRepository<Tienda, Long> {
 
     Optional<Tienda> findByNombre(String nombreTienda);
 
-
-    @Query("SELECT Rest FROM Producto Rest")
-    List<Categoria> finTienda();
-
     /*@Query("SELECT Tienda.nombre, Producto.nombre, Producto.stock FROM Tienda " +
             "JOIN Producto ON Tienda.id = Producto.id")
     List<String> stock_tienda();

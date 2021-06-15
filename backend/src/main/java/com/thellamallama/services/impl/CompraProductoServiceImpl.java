@@ -2,6 +2,7 @@ package com.thellamallama.services.impl;
 
 import com.thellamallama.dtos.CompraProductoDto;
 import com.thellamallama.dtos.CreateCompraProductoDto;
+import com.thellamallama.dtos.TiendaProductoDto;
 import com.thellamallama.entities.Compra;
 import com.thellamallama.entities.CompraProducto;
 import com.thellamallama.entities.Producto;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,8 +64,16 @@ public class CompraProductoServiceImpl implements CompraProductoService {
         Producto productoid = productoRepository.findById(createCompra_productoDtO.getProductoId())
                 .orElseThrow(()->new NotFoundException("NOT-401-1","PRODUCT_NOT_FOUND"));
 
+        TiendaProductoDto tiendaid = compra_productoRespository.getTiendaId(createCompra_productoDtO.getTiendaNombre(),
+                                                                            createCompra_productoDtO.getProductoId())
+                .orElseThrow(()->new NotFoundException("NOT-FOUND-404","NOT-FOUND-404"));
+        System.out.println(tiendaid.getTiendaid());
+        float desc = compra_productoRespository.getDesc(tiendaid.getTiendaid(), createCompra_productoDtO.getProductoId());
+        float precio = compra_productoRespository.getPrecio(tiendaid.getTiendaid(), createCompra_productoDtO.getProductoId());
+        precio = precio*createCompra_productoDtO.getCantproductos();
+
         compra_producto.setCantProductos(createCompra_productoDtO.getCantproductos());
-        compra_producto.setPrecioXCant(productoid.getPrecio()*compra_producto.getCantProductos());
+        compra_producto.setPrecioXCant(precio-(precio*desc));
         compra_producto.setCompraid(createCompra_productoDtO.getCompraId());
         compra_producto.setProductoid(createCompra_productoDtO.getProductoId());
         compra_producto.setCompra(compraid);

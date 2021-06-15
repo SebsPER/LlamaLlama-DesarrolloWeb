@@ -2,6 +2,7 @@ package com.thellamallama.services.impl;
 
 import com.thellamallama.dtos.ClienteDto;
 import com.thellamallama.dtos.CreateTiendaProductoDto;
+import com.thellamallama.dtos.TProdCategoriaDto;
 import com.thellamallama.dtos.TiendaProductoDto;
 import com.thellamallama.entities.Cliente;
 import com.thellamallama.entities.Producto;
@@ -27,8 +28,6 @@ import java.util.stream.Collectors;
 @Service
 public class TiendaProductoServiceImpl implements TiendaProductoService {
 
-
-
     @Autowired
     private TiendaProductoRepository tienda_productoRepository;
     @Autowired
@@ -51,8 +50,20 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
     }
 
     @Override
+    public List<TiendaProductoDto> getTpByCategoria(String categoriaid) throws BookingException {
+        List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findByCategoria(categoriaid);
+        return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
     public List<TiendaProductoDto> getAll() throws BookingException {
         List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findAll();
+        return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TiendaProductoDto> getTpByNombre(String nombre) throws BookingException {
+        List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findByName(nombre);
         return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
     }
 
@@ -86,8 +97,11 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
         try{
             tienda_producto=tienda_productoRepository.save(tienda_producto);
         }catch (Exception ex){
-            throw new InternalServerErrorException("INTERLANL_SERVER_ERROR","INTERNAL_SERVER_ERROR");
+            throw new InternalServerErrorException("INTERNAL_SERVER_ERROR","INTERNAL_SERVER_ERROR");
         }
+        /*TiendaProductoDto map = modelMapper.map(getTienda_ProductoEntity(tienda.getId(), producto.getId()), TiendaProductoDto.class);
+        map.setCategoria(producto.getId());
+        return map;*/
         return modelMapper.map(getTienda_ProductoEntity(tienda.getId(), producto.getId()), TiendaProductoDto.class);
     }
 
