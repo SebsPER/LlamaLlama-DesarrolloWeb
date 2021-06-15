@@ -50,6 +50,12 @@ public class TiendaProducto {
     )
     private Integer precio;
 
+    @Column(
+            name="descuento",
+            nullable = false
+    )
+    private float descuento;
+
     @Id
     @Column(name = "productoid")
     private Long productoid;

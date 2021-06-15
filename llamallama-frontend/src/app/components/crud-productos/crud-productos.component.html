@@ -1,0 +1,43 @@
+<div class="body">
+    <div class="register">
+        <mat-form-field>
+            <mat-label> Store </mat-label>
+            <mat-select [(ngModel)] = "storeId" name="tienda">
+                <mat-option *ngFor = "let store of stores" [value] = "store">
+                    {{store}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label> Product </mat-label>
+            <mat-select [(ngModel)] = "productId" name="producto">
+                <mat-option *ngFor = "let product of products" [value] = "product">
+                    {{product}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="inputtext">
+            <input matInput placeholder="Price" [(ngModel)] = "price">
+        </mat-form-field>
+        <mat-form-field class="inputtext">
+            <input matInput placeholder="Stock" [(ngModel)] = "stock">
+        </mat-form-field>
+        <mat-form-field class="inputtext">
+            <input matInput placeholder="Discount" [(ngModel)] = "discount">
+        </mat-form-field>
+        <br>
+        <button (click)='registrar(productId, storeId, price, stock)' mat-raised-button mat-button color="primary"> 
+            Registrar
+        </button>
+    </div>
+    
+    <div class="listado-productos">
+        <ul class="list-of-products">
+            <li *ngFor = "let product of products">
+                <span class="badge"> {{product}} </span>
+            </li>
+        </ul>
+
+    </div>
+</div>

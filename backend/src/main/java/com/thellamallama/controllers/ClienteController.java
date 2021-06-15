@@ -33,7 +33,13 @@ public class ClienteController {
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 clienteService.getClientes());
     }
-
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/clientesUpdate")
+    public BookingResponse<ClienteDto> update(@RequestBody ClienteDto clienteDto) throws
+            BookingException{
+        return new BookingResponse<>("Succes", String.valueOf(HttpStatus.OK),"OK",
+                clienteService.update(clienteDto));
+    }
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/clientes")
     public BookingResponse<ClienteDto> createCliente(@RequestBody CreateClienteDto createClienteDto) throws

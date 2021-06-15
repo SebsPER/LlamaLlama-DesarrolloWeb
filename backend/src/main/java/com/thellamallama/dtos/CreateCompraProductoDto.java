@@ -12,5 +12,6 @@ public class CreateCompraProductoDto {
     //private Long precioXCant;
     private Long compraId;
     private Long productoId;
+    private Long tiendaid;
 
 }

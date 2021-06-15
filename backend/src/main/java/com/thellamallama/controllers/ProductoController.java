@@ -27,21 +27,38 @@ public class ProductoController {
     @GetMapping("/product/{productoId}")
     public BookingResponse<ProductoDto> getProductoById(@PathVariable Long productoId)
             throws BookingException{
-        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+        return new BookingResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
                 productoService.getProductoById(productoId));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/productn/{nombreProd}")
+    public BookingResponse<ProductoDto> getProductoByName(@PathVariable String nombreProd)
+            throws BookingException{
+        return new BookingResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
+                productoService.getProductoByName(nombreProd));
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products")
     public BookingResponse<List<ProductoDto>> getProductos()
             throws BookingException{
-        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+        return new BookingResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
                 productoService.getProductos());
     }
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/products")
     public BookingResponse<ProductoDto> createProducto(@RequestBody CreateProductoDto createProductoDto)
             throws BookingException{
-        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+        return new BookingResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
                 productoService.createProducto(createProductoDto));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/productdi/{id}")
+    public void deleteById(@PathVariable Long id){
+        this.productoService.deleteById(id);
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/productdn/{nombre}")
+    public void deleteByName(@PathVariable String nombre){
+        this.productoService.deleteByNombre(nombre);
     }
 }

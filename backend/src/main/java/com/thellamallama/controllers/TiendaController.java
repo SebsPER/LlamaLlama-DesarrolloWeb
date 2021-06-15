@@ -2,6 +2,7 @@ package com.thellamallama.controllers;
 
 import com.thellamallama.dtos.CreateTiendaDto;
 import com.thellamallama.dtos.TiendaDto;
+import com.thellamallama.entities.Tienda;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.responses.BookingResponse;
 import com.thellamallama.services.TiendaService;
@@ -22,13 +23,19 @@ public class TiendaController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tienda/{tiendaId}")
-    public BookingResponse<TiendaDto> getTiEndabyId(@PathVariable Long tiendaId) throws BookingException
+    public BookingResponse<TiendaDto> getTiendabyId(@PathVariable Long tiendaId) throws BookingException
     {
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                     tiendaService.getTiendabyID(tiendaId));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/tiendan/{tiendaName}")
+    public BookingResponse<TiendaDto> getTiendabyName(@PathVariable String tiendaName) throws BookingException
+    {
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                tiendaService.getTiendabyNombre(tiendaName));
 
     }
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tienda")
     public BookingResponse<List<TiendaDto>> getTiendas()
@@ -36,7 +43,12 @@ public class TiendaController {
         return new BookingResponse<>("Sucess",String.valueOf(HttpStatus.OK),"OK",
                 tiendaService.getTiendas());
     }
-
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/tUpdate")
+    public BookingResponse<TiendaDto> update(@RequestBody TiendaDto subDto)  throws BookingException{
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                tiendaService.update(subDto));
+    }
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/tienda")
     public BookingResponse<TiendaDto> createTienda(@RequestBody CreateTiendaDto createTiendaDto)

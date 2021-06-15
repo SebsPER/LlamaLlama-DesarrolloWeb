@@ -41,16 +41,6 @@ public class Producto {
             columnDefinition = "TEXT"
     )
     private String nombre;
-    @Column(
-            name="precio",
-            nullable = false
-    )
-    private Float precio;
-    @Column(
-            name="stock",
-            nullable = false
-    )
-    private Integer stock;
 
     @OneToMany(
             mappedBy = "producto",

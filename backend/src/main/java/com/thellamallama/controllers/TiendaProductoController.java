@@ -1,5 +1,6 @@
 package com.thellamallama.controllers;
 
+import com.thellamallama.dtos.ClienteDto;
 import com.thellamallama.dtos.CreateTiendaProductoDto;
 import com.thellamallama.dtos.TiendaProductoDto;
 import com.thellamallama.exceptions.BookingException;
@@ -35,6 +36,20 @@ public class TiendaProductoController {
                 tienda_productoService.getTiendaById(tiendaId));
     }
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/tienda_productoc/{categoriaId}")
+    public BookingResponse<List<TiendaProductoDto>> getByCategoria(@PathVariable String categoriaId)
+            throws BookingException{
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                tienda_productoService.getTpByCategoria(categoriaId));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/tienda_producton/{nombreProd}")
+    public BookingResponse<List<TiendaProductoDto>> getByNombre(@PathVariable String nombreProd)
+            throws BookingException{
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                tienda_productoService.getTpByNombre(nombreProd));
+    }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tienda_producto")
     public BookingResponse<List<TiendaProductoDto>> getAll()
             throws BookingException{
@@ -42,10 +57,26 @@ public class TiendaProductoController {
                 tienda_productoService.getAll());
     }
     @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/tpUpdate/{tiendaid}/{productoid}/{stock}/{precio}/{descuento}") //@RequestBody TiendaProductoDto tpDto
+    public BookingResponse<TiendaProductoDto> update(@PathVariable Long tiendaid,
+                                                     @PathVariable Long productoid,
+                                                     @PathVariable Integer stock,
+                                                     @PathVariable Integer precio,
+                                                     @PathVariable float descuento) throws
+            BookingException{
+        return new BookingResponse<>("Succes", String.valueOf(HttpStatus.OK),"OK",
+                tienda_productoService.update(tiendaid, productoid, stock, precio, descuento));
+    }
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/tienda_producto")
     public BookingResponse<TiendaProductoDto> createTienda_producto(@RequestBody CreateTiendaProductoDto createTienda_productoDto)
             throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 tienda_productoService.createTienda_Producto(createTienda_productoDto));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/tiendaProducto/{tiendaid}/{productoid}")
+    public void deleteByTiendaidAndProductoid(@PathVariable Long tiendaid, @PathVariable Long productoid){
+        this.tienda_productoService.deleteByTiendaidAndProductoid(tiendaid, productoid);
     }
 }

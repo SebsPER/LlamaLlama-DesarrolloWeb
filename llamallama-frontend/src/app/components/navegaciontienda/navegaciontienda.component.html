@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let Producto of productos">
+            <mat-card class="card-theme">
+                <mat-card-header>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-card-title>{{Producto.nombre}}</mat-card-title>
+                    <mat-card-subtitle>Precio por unidad : {{Producto.precio}}</mat-card-subtitle>
+                    <mat-card-subtitle>Categoria: {{Producto.categoriaid}}</mat-card-subtitle>
+                </mat-card-content>
+            </mat-card>
+            <button>Agregar al carrito</button>
+            <button>Comprar</button>
+        </div>
+    </div>
+</div>

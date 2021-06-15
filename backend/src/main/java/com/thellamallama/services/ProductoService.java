@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface ProductoService {
     ProductoDto getProductoById(Long productoId) throws BookingException;
+    ProductoDto getProductoByName(String nombre) throws BookingException;
     List<ProductoDto> getProductos()throws BookingException;
     ProductoDto createProducto(CreateProductoDto createProductoDto)throws BookingException;
+    void deleteById(Long id);
+    void deleteByNombre(String nombre);
 }

@@ -2,15 +2,16 @@ package com.thellamallama.services.impl;
 
 import com.thellamallama.dtos.CompraProductoDto;
 import com.thellamallama.dtos.CreateCompraProductoDto;
-import com.thellamallama.entities.Compra;
-import com.thellamallama.entities.CompraProducto;
-import com.thellamallama.entities.Producto;
+import com.thellamallama.dtos.TiendaDto;
+import com.thellamallama.dtos.TiendaProductoDto;
+import com.thellamallama.entities.*;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
 import com.thellamallama.repositories.CompraRepository;
 import com.thellamallama.repositories.CompraProductoRespository;
 import com.thellamallama.repositories.ProductoRepository;
+import com.thellamallama.repositories.TiendaProductoRepository;
 import com.thellamallama.services.CompraProductoService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +32,8 @@ public class CompraProductoServiceImpl implements CompraProductoService {
     private CompraRepository compraRepository;
     @Autowired
     private ProductoRepository productoRepository;
+    @Autowired
+    private TiendaProductoRepository tiendaProductoRepository;
 
     private  static final ModelMapper modelMapper= new ModelMapper();
     @Override
@@ -62,8 +66,11 @@ public class CompraProductoServiceImpl implements CompraProductoService {
         Producto productoid = productoRepository.findById(createCompra_productoDtO.getProductoId())
                 .orElseThrow(()->new NotFoundException("NOT-401-1","PRODUCT_NOT_FOUND"));
 
+        TiendaProducto tp = tiendaProductoRepository.findByTiendaidAndProductoid(createCompra_productoDtO.getTiendaid(), createCompra_productoDtO.getProductoId())
+                .orElseThrow(()->new NotFoundException("NOT-401-1","PRODUCT_NOT_FOUND"));
+
         compra_producto.setCantProductos(createCompra_productoDtO.getCantproductos());
-        compra_producto.setPrecioXCant(productoid.getPrecio()*compra_producto.getCantProductos());
+        compra_producto.setPrecioXCant(tp.getPrecio()-(tp.getPrecio()*tp.getDescuento()));
         compra_producto.setCompraid(createCompra_productoDtO.getCompraId());
         compra_producto.setProductoid(createCompra_productoDtO.getProductoId());
         compra_producto.setCompra(compraid);
