@@ -27,6 +27,12 @@ public class ClienteController {
                 clienteService.getClientebyID(clienteId));
     }
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/clienteAuth/{clienteId}/{password}")
+    public BookingResponse<ClienteDto> getClientebyIdAndPwd(@PathVariable Long clienteId, @PathVariable String password) throws BookingException {
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                clienteService.getClientebyIdAndPwd(clienteId, password));
+    }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/clientes")
     public BookingResponse<List<ClienteDto>> getClientes()
         throws BookingException{

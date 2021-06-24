@@ -31,7 +31,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 
     @Override
     public CategoriaDto getCategoriaById(Long categoriaid) throws BookingException {
-        return modelMapper.map(getCategoriaById(categoriaid),CategoriaDto.class) ;
+        return modelMapper.map(getCategoriasEntity(categoriaid),CategoriaDto.class);
     }
 
     @Override

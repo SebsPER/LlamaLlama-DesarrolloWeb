@@ -31,6 +31,12 @@ public class ClienteServiceImpl implements ClienteService {
         return modelMapper.map(getClienteEntity(clienteid),ClienteDto.class) ;
     }
 
+    public ClienteDto getClientebyIdAndPwd(Long clienteId, String password) throws BookingException {
+        Cliente cliente = clienteRepository.findByIdAndPassword(clienteId, password)
+                .orElseThrow(() -> new NotFoundException("NOT-401-1", "CLIENTE_NOT_FOUND"));
+        return modelMapper.map(cliente,ClienteDto.class) ;
+    }
+
     @Override
     public List<ClienteDto> getClientes() throws BookingException {
         List<Cliente> clientesEntity=clienteRepository.findAll();

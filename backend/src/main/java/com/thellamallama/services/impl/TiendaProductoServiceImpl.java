@@ -1,16 +1,11 @@
 package com.thellamallama.services.impl;
 
-import com.thellamallama.dtos.ClienteDto;
-import com.thellamallama.dtos.CreateTiendaProductoDto;
-import com.thellamallama.dtos.TProdCategoriaDto;
-import com.thellamallama.dtos.TiendaProductoDto;
-import com.thellamallama.entities.Cliente;
-import com.thellamallama.entities.Producto;
-import com.thellamallama.entities.Tienda;
-import com.thellamallama.entities.TiendaProducto;
+import com.thellamallama.dtos.*;
+import com.thellamallama.entities.*;
 import com.thellamallama.exceptions.BookingException;
 import com.thellamallama.exceptions.InternalServerErrorException;
 import com.thellamallama.exceptions.NotFoundException;
+import com.thellamallama.repositories.CategoriaRepository;
 import com.thellamallama.repositories.ProductoRepository;
 import com.thellamallama.repositories.TiendaRepository;
 import com.thellamallama.repositories.TiendaProductoRepository;
@@ -24,6 +19,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class TiendaProductoServiceImpl implements TiendaProductoService {
@@ -34,6 +30,8 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
     private TiendaRepository tiendaRepository;
     @Autowired
     private ProductoRepository productoRepository;
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     private static final ModelMapper modelMapper = new ModelMapper();
 
@@ -46,25 +44,77 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
     @Override
     public List<TiendaProductoDto> getTiendaById(Long tiendaid) throws BookingException {
         List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findByTiendaid(tiendaid);
-        return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        //return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        Stream<TiendaProductoDto> maps = tiendaProductoEntity.stream()
+                .map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class));
+        List<TiendaProductoDto> arrayM = maps.collect(Collectors.toList());
+        for (TiendaProductoDto m: arrayM){
+            //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
+            Producto prod = getProductEntity(m.getProductoid());
+            m.setProdN(prod.getNombre());
+            Tienda tienda = getTiendaEntity(m.getTiendaid());
+            m.setTName(tienda.getNombre());
+            Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
+            m.setCatN(cat.getNombre());
+        }
+        return arrayM;
     }
 
     @Override
     public List<TiendaProductoDto> getTpByCategoria(String categoriaid) throws BookingException {
         List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findByCategoria(categoriaid);
-        return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        //return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        Stream<TiendaProductoDto> maps = tiendaProductoEntity.stream()
+                .map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class));
+        List<TiendaProductoDto> arrayM = maps.collect(Collectors.toList());
+        for (TiendaProductoDto m: arrayM){
+            //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
+            Producto prod = getProductEntity(m.getProductoid());
+            m.setProdN(prod.getNombre());
+            Tienda tienda = getTiendaEntity(m.getTiendaid());
+            m.setTName(tienda.getNombre());
+            Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
+            m.setCatN(cat.getNombre());
+        }
+        return arrayM;
     }
 
     @Override
     public List<TiendaProductoDto> getAll() throws BookingException {
         List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findAll();
-        return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        //return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        Stream<TiendaProductoDto> maps = tiendaProductoEntity.stream()
+                .map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class));
+        List<TiendaProductoDto> arrayM = maps.collect(Collectors.toList());
+        for (TiendaProductoDto m: arrayM){
+            //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
+            Producto prod = getProductEntity(m.getProductoid());
+            m.setProdN(prod.getNombre());
+            Tienda tienda = getTiendaEntity(m.getTiendaid());
+            m.setTName(tienda.getNombre());
+            Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
+            m.setCatN(cat.getNombre());
+        }
+        return arrayM;
     }
 
     @Override
-    public List<TiendaProductoDto> getTpByNombre(String nombre) throws BookingException {
+    public List<TiendaProductoDto> getTpByNombreProd(String nombre) throws BookingException {
         List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findByName(nombre);
-        return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        //return tiendaProductoEntity.stream().map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class)).collect(Collectors.toList());
+        Stream<TiendaProductoDto> maps = tiendaProductoEntity.stream()
+                .map(tienda_producto -> modelMapper.map(tienda_producto, TiendaProductoDto.class));
+        List<TiendaProductoDto> arrayM = maps.collect(Collectors.toList());
+        for (TiendaProductoDto m: arrayM){
+            //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
+            Producto prod = getProductEntity(m.getProductoid());
+            m.setProdN(prod.getNombre());
+            Tienda tienda = getTiendaEntity(m.getTiendaid());
+            m.setTName(tienda.getNombre());
+            Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
+            m.setCatN(cat.getNombre());
+        }
+        return arrayM;
     }
 
     @Override
@@ -119,5 +169,17 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
         TiendaProducto tp = new TiendaProducto();
         BeanUtils.copyProperties(tpDto, tp);
         return tp;
+    }
+    private Producto getProductEntity(Long ProductoId)throws BookingException{
+        return productoRepository.findById(ProductoId).
+                orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));
+    }
+    private Tienda getTiendaEntity(Long tiendaid)throws BookingException {
+        return tiendaRepository.findById(tiendaid)
+                .orElseThrow(()-> new NotFoundException("NOTFOUND-404","TIENDA_NOTFOUND-404"));
+    }
+    private Categoria getCategoriasEntity(Long categoriaid) throws BookingException{
+        return categoriaRepository.findById(categoriaid)
+                .orElseThrow(()->new NotFoundException("Not_Found-404","Not-Found-404"));
     }
 }

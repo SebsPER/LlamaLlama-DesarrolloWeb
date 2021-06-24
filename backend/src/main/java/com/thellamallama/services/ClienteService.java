@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ClienteService {
     ClienteDto getClientebyID(Long clienteid) throws BookingException;
+    ClienteDto getClientebyIdAndPwd(Long clienteid, String password) throws BookingException;
     List<ClienteDto> getClientes() throws BookingException;
     ClienteDto update(ClienteDto clienteDto) throws BookingException;
     ClienteDto createCliente(CreateClienteDto createClienteDto) throws BookingException;

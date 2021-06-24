@@ -52,7 +52,7 @@ public class CompraServiceImpl implements CompraService {
         List<Compra> compraEntity=compraRepository.findAll();
         Stream<CompraDto> maps = compraEntity.stream().map(compra->modelMapper.map(compra,CompraDto.class));
         //long size = compraEntity.stream().map(compra->modelMapper.map(compra,CompraDto.class)).count();
-        List<CompraDto> arrayM= maps.collect(Collectors.toList());
+        List<CompraDto> arrayM = maps.collect(Collectors.toList());
         for (CompraDto m: arrayM){
             Compra data = getCompraEntity(m.getId());
             m.setTipopagoid(data.getTipo_pago().getId());
@@ -65,10 +65,10 @@ public class CompraServiceImpl implements CompraService {
     @Override
     public CompraDto createCompra(CreateCompraDto createCompraDto) throws BookingException {
         Cliente clienteId = clienteRepository.findById(createCompraDto.getClienteid())
-                .orElseThrow(() -> new NotFoundException("NOT-401-1", "RESTAURANT_NOT_FOUND"));
+                .orElseThrow(() -> new NotFoundException("NOT-401-1", "CLIENTE_NOT_FOUND"));
 
         Tipo_pago tipoId = tipopagoRepository.findById(createCompraDto.getTipopagoid())
-                .orElseThrow(() -> new NotFoundException("NOT-401-1", "TURN_NOT_FOUND"));
+                .orElseThrow(() -> new NotFoundException("NOT-401-1", "TIPOPAGO_NOT_FOUND"));
 
         Compra compra=new Compra();
         compra.setFecha(createCompraDto.getFecha());

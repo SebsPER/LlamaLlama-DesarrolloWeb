@@ -12,7 +12,7 @@ public interface TiendaProductoService {
     List<TiendaProductoDto> getTiendaById(Long tiendaid) throws BookingException;
     List<TiendaProductoDto> getTpByCategoria(String categoriaid) throws BookingException;
     List<TiendaProductoDto> getAll()throws  BookingException;
-    List<TiendaProductoDto> getTpByNombre(String nombre) throws BookingException;
+    List<TiendaProductoDto> getTpByNombreProd(String nombre) throws BookingException;
     TiendaProductoDto update(Long tiendaid, Long productoid, Integer stock, Integer precio, float descuento) throws BookingException;
     TiendaProductoDto createTienda_Producto(CreateTiendaProductoDto createTienda_productoDto)throws BookingException;
     void deleteByTiendaidAndProductoid(Long tiendaid, Long productoid);
