@@ -118,6 +118,24 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
     }
 
     @Override
+    public List<TiendaProductoDto> getTpByNombreTienda(String nombre) throws BookingException {
+        List<TiendaProducto> tiendaProductoEntity = tienda_productoRepository.findByTName(nombre);
+        Stream<TiendaProductoDto> maps = tiendaProductoEntity.stream()
+                .map(tiendaProducto -> modelMapper.map(tiendaProducto, TiendaProductoDto.class));
+        List<TiendaProductoDto> arrayM = maps.collect(Collectors.toList());
+        for (TiendaProductoDto m: arrayM){
+            Producto producto = getProductEntity(m.getProductoid());
+            m.setProdN(producto.getNombre());
+            Tienda tienda = getTiendaEntity(m.getTiendaid());
+            m.setTName(tienda.getNombre());
+            Categoria cat = getCategoriasEntity(producto.getCategoria().getId());
+            m.setCatN(cat.getNombre());
+        }
+        return arrayM;
+    }
+
+
+    @Override
     public TiendaProductoDto update(Long tiendaid, Long productoid, Integer stock, Integer precio, float descuento) throws BookingException {
         TiendaProducto tiendaProducto = getTienda_ProductoEntity(tiendaid, productoid);
         tiendaProducto.setStock(stock);

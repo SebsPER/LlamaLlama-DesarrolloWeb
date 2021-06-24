@@ -22,6 +22,9 @@ public interface TiendaProductoRepository extends JpaRepository<TiendaProducto, 
     @Query("select tp from TiendaProducto tp join tp.producto p where p.nombre = :pname ")
     List<TiendaProducto> findByName(String pname);
 
+    @Query("select tp from TiendaProducto tp join tp.tienda t where t.nombre = :tname")
+    List<TiendaProducto> findByTName(String tname);
+
     /*@Query("SELECT Rest FROM Producto Rest")
     List<TiendaProducto> findTienda_Productos();*/
 }
