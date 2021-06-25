@@ -52,6 +52,13 @@ public class TiendaServiceImpl implements TiendaService {
         return new TiendaDto(saveT);
     }
 
+    @Override
+    public TiendaDto getTiendabyRUCAndPass(Long ruc, String pass) throws BookingException {
+        Tienda tienda = tiendaRepository.findByRUCAndPassword(ruc, pass)
+                .orElseThrow(()-> new NotFoundException("NOT-401-1","TIENDA_NOT_FOUND"));
+        return modelMapper.map(tienda,TiendaDto.class);
+    }
+
     @Transactional
     @Override
     public TiendaDto createTienda(CreateTiendaDto createTiendaDto) throws BookingException {
@@ -72,6 +79,8 @@ public class TiendaServiceImpl implements TiendaService {
 
         return modelMapper.map(getTiendaEntity(tienda.getId()),TiendaDto.class);
     }
+
+
 
     private Tienda getTiendaEntity(Long tiendaid)throws BookingException {
         return tiendaRepository.findById(tiendaid)

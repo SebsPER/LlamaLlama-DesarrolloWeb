@@ -70,6 +70,14 @@ public class ClienteServiceImpl implements ClienteService {
         return modelMapper.map(getClienteEntity(cliente.getId()), ClienteDto.class);
 
     }
+
+    @Override
+    public ClienteDto getClientebyDniAndPwd(Integer Dni, String password) throws BookingException {
+        Cliente cliente= clienteRepository.findByDniAndPassword(Dni,password)
+                .orElseThrow(()->new NotFoundException("NOT-401-1","CLIENTE-NOT-FOUND"));
+        return modelMapper.map(cliente,ClienteDto.class);
+    }
+
     private Cliente getClienteEntity(Long clienteid) throws BookingException {
         return clienteRepository.findById(clienteid)
                 .orElseThrow(()-> new NotFoundException("NOT-FOUND-404","NOT-FOUND-404"));

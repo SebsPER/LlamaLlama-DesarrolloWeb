@@ -15,4 +15,5 @@ public interface ClienteService {
     List<ClienteDto> getClientes() throws BookingException;
     ClienteDto update(ClienteDto clienteDto) throws BookingException;
     ClienteDto createCliente(CreateClienteDto createClienteDto) throws BookingException;
+    ClienteDto getClientebyDniAndPwd(Integer Dni,String password) throws BookingException;
 }

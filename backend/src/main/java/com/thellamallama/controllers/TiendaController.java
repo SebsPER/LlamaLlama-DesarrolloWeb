@@ -37,6 +37,13 @@ public class TiendaController {
 
     }
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/tiend/{tiendapass}/{tiendaruc}")
+    public BookingResponse<TiendaDto> getTiendasbyRUCAndPass(@PathVariable Long tiendaruc,@PathVariable String tiendapass) throws BookingException {
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                tiendaService.getTiendabyRUCAndPass(tiendaruc,tiendapass));
+
+    }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tienda")
     public BookingResponse<List<TiendaDto>> getTiendas()
         throws BookingException{

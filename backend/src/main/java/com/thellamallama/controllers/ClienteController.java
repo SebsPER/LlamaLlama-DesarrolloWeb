@@ -33,6 +33,13 @@ public class ClienteController {
                 clienteService.getClientebyIdAndPwd(clienteId, password));
     }
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/clienteTen/{clientedni}/{clientepassword}")
+    public BookingResponse<ClienteDto> getClientebyDniAndPwd(@PathVariable Integer clientedni, @PathVariable String clientepassword) throws BookingException {
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                clienteService.getClientebyDniAndPwd(clientedni, clientepassword));
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/clientes")
     public BookingResponse<List<ClienteDto>> getClientes()
         throws BookingException{

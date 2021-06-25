@@ -22,7 +22,7 @@ public class TiendaProductoController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tienda_producto/{tiendaId}/{productoId}")
-    public BookingResponse<TiendaProductoDto> getTienda_productoById(@PathVariable Long tiendaId,
+    public BookingResponse<TiendaProductoDto> getByTiendaIdAndProductoId(@PathVariable Long tiendaId,
                                                                      @PathVariable Long productoId)
             throws BookingException {
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",

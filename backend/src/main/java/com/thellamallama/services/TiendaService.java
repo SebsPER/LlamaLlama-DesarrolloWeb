@@ -12,4 +12,5 @@ public interface TiendaService {
     List<TiendaDto> getTiendas() throws BookingException;
     TiendaDto update(TiendaDto tiendaDto) throws BookingException;
     TiendaDto createTienda(CreateTiendaDto createTiendaDto) throws BookingException;
+    TiendaDto getTiendabyRUCAndPass(Long ruc, String pass) throws  BookingException;
 }

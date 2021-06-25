@@ -15,6 +15,8 @@ import java.util.Optional;
 public interface TiendaRepository extends JpaRepository<Tienda, Long> {
     Optional<Tienda> findById(Long id);
 
+    Optional<Tienda> findByRUCAndPassword(Long RUC, String password);
+
     Optional<Tienda> findByNombre(String nombreTienda);
 
     /*@Query("SELECT Tienda.nombre, Producto.nombre, Producto.stock FROM Tienda " +
