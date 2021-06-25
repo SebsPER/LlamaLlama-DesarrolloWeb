@@ -54,7 +54,7 @@ public class TiendaProducto {
             name="descuento",
             nullable = false
     )
-    private float descuento;
+    private Float descuento;
 
     @Id
     @Column(name = "productoid")

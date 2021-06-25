@@ -175,6 +175,7 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
         tienda_producto.setPrecio(createTienda_productoDto.getPrecio());
         tienda_producto.setTiendaid(createTienda_productoDto.getTiendaid());
         tienda_producto.setProductoid(createTienda_productoDto.getProductoid());
+        tienda_producto.setDescuento(createTienda_productoDto.getDescuento());
         tienda_producto.setProducto(producto);
         tienda_producto.setTienda(tienda);
 
@@ -187,6 +188,21 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
         map.setCategoria(producto.getId());
         return map;*/
         return modelMapper.map(getTienda_ProductoEntity(tienda.getId(), producto.getId()), TiendaProductoDto.class);
+    }
+
+    @Override
+    public TiendaProductoDto getByTiendaNameAndProdName(String tname, String pname) throws BookingException {
+        TiendaProducto tiendaProdEntity = tienda_productoRepository.findByTNameAndProdName(tname, pname)
+                .orElseThrow(()-> new NotFoundException("NOT-401-1","TIENDAPRODUCTOS_NOT_FOUND"));
+        TiendaProductoDto map = modelMapper.map(tiendaProdEntity, TiendaProductoDto.class);
+        Producto prod = getProductEntity(tiendaProdEntity.getProductoid());
+        map.setProdN(prod.getNombre());
+        map.setUrlN(prod.getUrl());
+        Tienda tienda = getTiendaEntity(tiendaProdEntity.getTiendaid());
+        map.setTName(tienda.getNombre());
+        Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
+        map.setCatN(cat.getNombre());
+        return map;
     }
 
     @Transactional

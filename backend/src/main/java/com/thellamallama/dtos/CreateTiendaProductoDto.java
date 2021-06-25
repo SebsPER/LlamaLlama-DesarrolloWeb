@@ -10,5 +10,5 @@ public class CreateTiendaProductoDto {
     private Integer precio;
     private Long tiendaid;
     private Long productoid;
-    private float descuento;
+    private Float descuento;
 }

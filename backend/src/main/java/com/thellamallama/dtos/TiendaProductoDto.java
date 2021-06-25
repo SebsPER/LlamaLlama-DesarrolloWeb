@@ -19,7 +19,7 @@ public class TiendaProductoDto {
     private Integer precio;
     private Long tiendaid;
     private Long productoid;
-    private float descuento;
+    private Float descuento;
     private String prodN;
     private String catN;
     private String tName;

@@ -68,9 +68,9 @@ public class CompraProductoServiceImpl implements CompraProductoService {
 
         TiendaProducto tp = tiendaProductoRepository.findByTiendaidAndProductoid(createCompra_productoDtO.getTiendaid(), createCompra_productoDtO.getProductoId())
                 .orElseThrow(()->new NotFoundException("NOT-401-1","PRODUCT_NOT_FOUND"));
-
+        Float descuento = tp.getPrecio()*tp.getDescuento();
         compra_producto.setCantProductos(createCompra_productoDtO.getCantproductos());
-        compra_producto.setPrecioXCant(tp.getPrecio()-(tp.getPrecio()*tp.getDescuento()));
+        compra_producto.setPrecioXCant(createCompra_productoDtO.getCantproductos()*(tp.getPrecio()-descuento));
         compra_producto.setCompraid(createCompra_productoDtO.getCompraId());
         compra_producto.setProductoid(createCompra_productoDtO.getProductoId());
         compra_producto.setCompra(compraid);

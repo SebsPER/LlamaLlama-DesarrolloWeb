@@ -29,6 +29,14 @@ public class TiendaProductoController {
                 tienda_productoService.getTienda_ProductoById(tiendaId, productoId));
     }
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/tienda_productoNames/{tiendaName}/{productoName}")
+    public BookingResponse<TiendaProductoDto> getByTiendaNameAndProductoName(@PathVariable String tiendaName,
+                                                                         @PathVariable String productoName)
+            throws BookingException {
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                tienda_productoService.getByTiendaNameAndProdName(tiendaName, productoName));
+    }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tienda_producto/{tiendaId}")
     public BookingResponse<List<TiendaProductoDto>> getByTiendaId(@PathVariable Long tiendaId)
             throws BookingException{
