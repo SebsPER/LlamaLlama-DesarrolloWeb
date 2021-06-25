@@ -38,7 +38,16 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
 
     @Override
     public TiendaProductoDto getTienda_ProductoById(Long tiendaid, Long productoid) throws BookingException {
-        return modelMapper.map(getTienda_ProductoEntity(tiendaid, productoid), TiendaProductoDto.class);
+        TiendaProducto tiendaProductoEntity = getTienda_ProductoEntity(tiendaid, productoid);
+        TiendaProductoDto map = modelMapper.map(getTienda_ProductoEntity(tiendaid, productoid), TiendaProductoDto.class);
+        Producto prod = getProductEntity(tiendaProductoEntity.getProductoid());
+        map.setProdN(prod.getNombre());
+        Tienda tienda = getTiendaEntity(tiendaProductoEntity.getTiendaid());
+        map.setTName(tienda.getNombre());
+        Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
+        map.setCatN(cat.getNombre());
+        return map;
+        //return modelMapper.map(getTienda_ProductoEntity(tiendaid, productoid), TiendaProductoDto.class);
     }
 
     @Override
