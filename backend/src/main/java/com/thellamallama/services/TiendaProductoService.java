@@ -18,3 +18,5 @@ public interface TiendaProductoService {
     TiendaProductoDto createTienda_Producto(CreateTiendaProductoDto createTienda_productoDto)throws BookingException;
     void deleteByTiendaidAndProductoid(Long tiendaid, Long productoid);
 }
+
+

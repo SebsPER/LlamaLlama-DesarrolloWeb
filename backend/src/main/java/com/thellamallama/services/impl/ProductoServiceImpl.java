@@ -71,6 +71,7 @@ public class ProductoServiceImpl implements ProductoService {
         //producto.setTiendas(createProductoDto.getTiendaid());
         //producto.setCompras(createProductoDto.getCompraid());
         producto.setCategoria(categoriaid);
+        producto.setUrl(createProductoDto.getUrl());
 
         try{
             producto=productoRepository.save(producto);

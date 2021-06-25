@@ -23,6 +23,7 @@ public class TiendaProductoDto {
     private String prodN;
     private String catN;
     private String tName;
+    private String urlN;
     //private Long Categoria;
 
     public TiendaProductoDto(TiendaProducto up) { BeanUtils.copyProperties(up, this);}

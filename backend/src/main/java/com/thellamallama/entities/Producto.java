@@ -67,6 +67,12 @@ public class Producto {
     )
     private Categoria categoria;
 
+    @Column(
+            name="url",
+            nullable = false
+    )
+    private String url;
+
 
 }
 

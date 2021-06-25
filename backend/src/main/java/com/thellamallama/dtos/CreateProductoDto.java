@@ -8,5 +8,6 @@ public class CreateProductoDto {
     //private Long tiendaid;
     private Long categoriaid;
     //private Long compraid;
+    private String url;
 }
 

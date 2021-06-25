@@ -42,6 +42,7 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
         TiendaProductoDto map = modelMapper.map(getTienda_ProductoEntity(tiendaid, productoid), TiendaProductoDto.class);
         Producto prod = getProductEntity(tiendaProductoEntity.getProductoid());
         map.setProdN(prod.getNombre());
+        map.setUrlN(prod.getUrl());
         Tienda tienda = getTiendaEntity(tiendaProductoEntity.getTiendaid());
         map.setTName(tienda.getNombre());
         Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
@@ -61,10 +62,12 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
             //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
             Producto prod = getProductEntity(m.getProductoid());
             m.setProdN(prod.getNombre());
+            m.setUrlN(prod.getUrl());
             Tienda tienda = getTiendaEntity(m.getTiendaid());
             m.setTName(tienda.getNombre());
             Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
             m.setCatN(cat.getNombre());
+
         }
         return arrayM;
     }
@@ -80,6 +83,7 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
             //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
             Producto prod = getProductEntity(m.getProductoid());
             m.setProdN(prod.getNombre());
+            m.setUrlN(prod.getUrl());
             Tienda tienda = getTiendaEntity(m.getTiendaid());
             m.setTName(tienda.getNombre());
             Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
@@ -99,6 +103,7 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
             //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
             Producto prod = getProductEntity(m.getProductoid());
             m.setProdN(prod.getNombre());
+            m.setUrlN(prod.getUrl());
             Tienda tienda = getTiendaEntity(m.getTiendaid());
             m.setTName(tienda.getNombre());
             Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
@@ -118,6 +123,7 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
             //TiendaProducto data = getTienda_ProductoEntity(m.getTiendaid(), m.getProductoid());
             Producto prod = getProductEntity(m.getProductoid());
             m.setProdN(prod.getNombre());
+            m.setUrlN(prod.getUrl());
             Tienda tienda = getTiendaEntity(m.getTiendaid());
             m.setTName(tienda.getNombre());
             Categoria cat = getCategoriasEntity(prod.getCategoria().getId());
@@ -135,6 +141,7 @@ public class TiendaProductoServiceImpl implements TiendaProductoService {
         for (TiendaProductoDto m: arrayM){
             Producto producto = getProductEntity(m.getProductoid());
             m.setProdN(producto.getNombre());
+            m.setUrlN(producto.getUrl());
             Tienda tienda = getTiendaEntity(m.getTiendaid());
             m.setTName(tienda.getNombre());
             Categoria cat = getCategoriasEntity(producto.getCategoria().getId());
