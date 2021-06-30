@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CompraRepository extends JpaRepository<Compra, Long> {
     Optional<Compra> findById(Long id);
+
+    @Query("select c from Compra c where c.cliente.id = :clienteId ")
+    List<Compra> findByClienteId(Long clienteId);
     //Optional<Compra> findByClienteAndTipopago(Long clienteID,String tipopago);
 
     /*@Query("SELECT c FROM Compra c WHERE c.cliente=?1") //encontrar todas las compras de un cliente

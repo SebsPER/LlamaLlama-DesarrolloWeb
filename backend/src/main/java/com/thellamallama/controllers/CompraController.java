@@ -23,10 +23,17 @@ public class CompraController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/compra/{compraId}")
-    public BookingResponse<CompraDto>  getComprabyId(@PathVariable Long compraId)
+    public BookingResponse<CompraDto> getComprabyId(@PathVariable Long compraId)
         throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 compraService.getCompraById(compraId));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/compracli/{clienteId}")
+    public BookingResponse<List<CompraDto>> getComprabyClienteId(@PathVariable Long clienteId)
+            throws BookingException{
+        return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
+                compraService.getCompraByClienteId(clienteId));
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("compras")

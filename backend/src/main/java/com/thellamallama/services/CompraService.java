@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface CompraService {
     CompraDto getCompraById(Long CompraId) throws BookingException;
+    List<CompraDto> getCompraByClienteId(Long clienteId) throws BookingException;
     List<CompraDto> getCompras()throws BookingException;
     CompraDto createCompra(CreateCompraDto createCompraDto)throws BookingException;
 

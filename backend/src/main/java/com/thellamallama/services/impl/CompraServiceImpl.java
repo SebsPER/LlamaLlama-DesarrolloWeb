@@ -48,6 +48,19 @@ public class CompraServiceImpl implements CompraService {
     }
 
     @Override
+    public List<CompraDto> getCompraByClienteId(Long clienteId) throws BookingException {
+        List<Compra> compraEntity = compraRepository.findByClienteId(clienteId);
+        Stream<CompraDto> maps = compraEntity.stream().map(compra->modelMapper.map(compra,CompraDto.class));
+        List<CompraDto> arrayM = maps.collect(Collectors.toList());
+        for (CompraDto m: arrayM){
+            Compra data = getCompraEntity(m.getId());
+            m.setTipopagoid(data.getTipo_pago().getId());
+            m.setClienteid(data.getCliente().getId());
+        }
+        return arrayM;
+    }
+
+    @Override
     public List<CompraDto> getCompras() throws BookingException {
         List<Compra> compraEntity=compraRepository.findAll();
         Stream<CompraDto> maps = compraEntity.stream().map(compra->modelMapper.map(compra,CompraDto.class));
