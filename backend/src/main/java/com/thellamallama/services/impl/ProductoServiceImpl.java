@@ -13,6 +13,7 @@ import com.thellamallama.repositories.CategoriaRepository;
 import com.thellamallama.repositories.ProductoRepository;
 import com.thellamallama.services.ProductoService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,19 @@ public class ProductoServiceImpl implements ProductoService {
         }
         return arrayM;
     }
+
+    @Override
+    public ProductoDto update(Long productoid, String nombre, Long categoriaid) throws BookingException {
+        Categoria catId = categoriaRepository.findById(categoriaid)
+                .orElseThrow(()->new NotFoundException("NOT-401-1","CATEGORIA_NOT_FOUND"));
+
+        Producto producto = getProductEntity(productoid);
+        producto.setNombre(nombre);
+        producto.setCategoria(catId);
+        Producto saveProduct = this.productoRepository.save(producto);
+        return new ProductoDto(saveProduct);
+    }
+
     @Transactional
     @Override
     public ProductoDto createProducto(CreateProductoDto createProductoDto) throws BookingException {
@@ -91,6 +105,7 @@ public class ProductoServiceImpl implements ProductoService {
         productoRepository.deleteByNombre(nombre);
     }
 
+
     private Producto getProductEntity(Long ProductoId)throws BookingException{
         return productoRepository.findById(ProductoId).
                 orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));
@@ -98,5 +113,11 @@ public class ProductoServiceImpl implements ProductoService {
     private Producto getProductEntity(String nombre)throws BookingException{
         return productoRepository.findByNombre(nombre).
                 orElseThrow(()-> new NotFoundException("NOTFOUND-404","RESTAURANT_NOTFOUND-404"));
+    }
+
+    private Producto dtoEntity(ProductoDto productoDto){
+        Producto producto = new Producto();
+        BeanUtils.copyProperties(productoDto,producto);
+        return producto;
     }
 }

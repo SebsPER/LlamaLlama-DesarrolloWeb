@@ -14,4 +14,6 @@ public interface ProductoService {
     ProductoDto createProducto(CreateProductoDto createProductoDto)throws BookingException;
     void deleteById(Long id);
     void deleteByNombre(String nombre);
+    ProductoDto update(Long productoid, String nombre, Long categoriaid) throws BookingException;
+
 }

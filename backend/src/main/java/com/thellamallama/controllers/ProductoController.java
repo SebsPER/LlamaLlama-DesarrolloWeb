@@ -61,4 +61,14 @@ public class ProductoController {
     public void deleteByName(@PathVariable String nombre){
         this.productoService.deleteByNombre(nombre);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/products/{productoid}/{nombre}/{categoriaid}")
+    public BookingResponse<ProductoDto> updateProduct(@PathVariable Long productoid,
+                                                      @PathVariable String nombre,
+                                                      @PathVariable Long categoriaid)throws
+            BookingException{
+        return new BookingResponse<>("Succes", String.valueOf(HttpStatus.OK),"OK",
+                productoService.update(productoid, nombre, categoriaid));
+    }
 }
