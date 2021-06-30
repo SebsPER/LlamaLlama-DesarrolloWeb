@@ -51,7 +51,7 @@ public class TiendaController {
                 tiendaService.getTiendas());
     }
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/tUpdate")
+    @PutMapping("/tUpdate")
     public BookingResponse<TiendaDto> update(@RequestBody TiendaDto subDto)  throws BookingException{
         return new BookingResponse<>("Succes",String.valueOf(HttpStatus.OK),"OK",
                 tiendaService.update(subDto));

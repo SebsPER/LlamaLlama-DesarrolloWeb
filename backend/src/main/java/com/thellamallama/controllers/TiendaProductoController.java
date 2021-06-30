@@ -73,7 +73,7 @@ public class TiendaProductoController {
                 tienda_productoService.getAll());
     }
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/tpUpdate/{tiendaid}/{productoid}/{stock}/{precio}/{descuento}") //@RequestBody TiendaProductoDto tpDto
+    @PutMapping("/tpUpdate/{tiendaid}/{productoid}/{stock}/{precio}/{descuento}") //@RequestBody TiendaProductoDto tpDto
     public BookingResponse<TiendaProductoDto> update(@PathVariable Long tiendaid,
                                                      @PathVariable Long productoid,
                                                      @PathVariable Integer stock,

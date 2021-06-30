@@ -47,7 +47,7 @@ public class ClienteController {
                 clienteService.getClientes());
     }
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/clientesUpdate")
+    @PutMapping("/clientesUpdate")
     public BookingResponse<ClienteDto> update(@RequestBody ClienteDto clienteDto) throws
             BookingException{
         return new BookingResponse<>("Succes", String.valueOf(HttpStatus.OK),"OK",
